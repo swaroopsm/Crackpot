@@ -2032,7 +2032,25 @@
 
 $(document).ready(function(){
 	$("form#signup_form").live("submit",function(){
-		
+		var fields = $("form#signup_form :input");
+		var flag=new Array();
+		fields.each(function(){
+			if($.trim($(this).val()) == ""){
+				$("#js-messages").html("<center><span class='alert alert-danger span10'><button type='button' class='close' data-dismiss='alert'>&times;</button>Please fill all fields</span></center><br>").hide();
+				flag.push(1);
+			}else{
+				flag.push(0);
+			}
+		});
+		var i,sum=0;
+		for(i in flag){
+			sum=sum+flag[i]
+		}
+		if(sum>1){
+			$("#js-messages").fadeIn('slow');
+		}else{
+			$("#js-messages").fadeOut(500);
+		}
 		return false;
 	});
 });
