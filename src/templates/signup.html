@@ -1,5 +1,38 @@
 {% include "layouts/header.html" %}
 <body>
 	{% include "layouts/navbar.html" %}
+	<div class="container">
+		<br>
+		<div class="well">
+			<center><form id="signup_form" class="form" method="POST">
+				<legend>New Crackster!</legend>
+				<div class="control-group">
+					<div class="controls">
+						<input type="text" id="inputName" placeholder="Full Name" class="span5">
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<input type="text" id="inputEmail" placeholder="Email" class="span5">
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<input type="password" id="inputPassword" placeholder="Password" class="span5">
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<input type="text" id="inputUsername" placeholder="Username" class="span5">
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn btn-success">Start Cracking &raquo;</button>
+					</div>
+				</div>
+			</form></center>
+		</div>
+	</div>
 </body>
 </html>
