@@ -2025,3 +2025,16 @@
 
 
 }(window.jQuery);
+
+/**
+	* Custom Javascripts
+*/
+
+$(document).ready(function(){
+	$("form#signup_form").live("submit",function(){
+		
+		return false;
+	});
+});
+
+
