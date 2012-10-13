@@ -2050,6 +2050,10 @@ $(document).ready(function(){
 			$("#js-messages").fadeIn('slow');
 		}else{
 			$("#js-messages").fadeOut(500);
+			$.post("/new_user",{name: $("#inputName").val(), email: $("#inputEmail").val(), password: $("#inputPassword").val(), username: $("#inputUsername").val()},
+			function(data){
+				console.log(data)
+			});
 		}
 		return false;
 	});
