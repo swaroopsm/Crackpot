@@ -4,6 +4,9 @@ from flask import Flask, render_template
 from flask.ext.pymongo import PyMongo
 import settings as s
 
+import sys
+sys.path.insert(0,"wrappers/")
+
 app=Flask("Crackpot")
 
 app.config['MONGO_HOST']=s.MONGO_HOST
