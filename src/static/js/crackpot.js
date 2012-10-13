@@ -2054,10 +2054,10 @@ $(document).ready(function(){
 			function(data){
 				var obj=$.parseJSON(data)
 				if(obj.status=="success"){
-					$("#js-messages").html("<center><span class='alert alert-success span10'>Successfully registered. Please wait...</span></center><br>").hide().fadeIn(500);
+					$("#js-messages").html("<center><span class='alert alert-success span10'>"+obj.message+"</span></center><br>").hide().fadeIn(500);
 				}
 				else{
-					$("#js-messages").html("<center><span class='alert alert-danger span10'><button type='button' class='close' data-dismiss='alert'>&times;</button>There was an error. Please try again later...</span></center><br>").hide().fadeIn(500);
+					$("#js-messages").html("<center><span class='alert alert-danger span10'><button type='button' class='close' data-dismiss='alert'>&times;</button>"+obj.message+"</span></center><br>").hide().fadeIn(500);
 				}
 			});
 		}
