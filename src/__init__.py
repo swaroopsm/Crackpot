@@ -33,8 +33,9 @@ def new_user():
 	email=request.form['email']
 	password=request.form['password']
 	username=request.form['username']
+	a=u.new(mongo,name,email,password,username)
+	return a
 	
-
 if __name__=="__main__":
 	app.debug=True
 	app.run()
