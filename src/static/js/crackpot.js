@@ -2050,6 +2050,7 @@ $(document).ready(function(){
 			$("#js-messages").fadeIn('slow');
 		}else{
 			$("#js-messages").fadeOut(500);
+			$("#loader").show();
 			$.post("/new_user",{name: $("#inputName").val(), email: $("#inputEmail").val(), password: $("#inputPassword").val(), username: $("#inputUsername").val()},
 			function(data){
 				var obj=$.parseJSON(data)
@@ -2061,6 +2062,7 @@ $(document).ready(function(){
 				}
 			});
 		}
+		$("#loader").fadeOut(500);
 		return false;
 	});
 });
