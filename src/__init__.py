@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask.ext.pymongo import PyMongo
 import settings as s
 
@@ -24,6 +24,14 @@ def index():
 @app.route("/signup")
 def signup():
 	return render_template("signup.html", title="Crackpot | New Registration")
+
+@app.route("/new_user", methods=['POST'])
+def new_user():
+	name=request.form['name']
+	email=request.form['email']
+	password=request.form['password']
+	username=request.form['username']
+	
 
 if __name__=="__main__":
 	app.debug=True
