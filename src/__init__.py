@@ -7,6 +7,8 @@ import settings as s
 import sys
 sys.path.insert(0,"wrappers/")
 
+from Users import Users as u
+
 app=Flask("Crackpot")
 
 app.config['MONGO_HOST']=s.MONGO_HOST
