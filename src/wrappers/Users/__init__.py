@@ -10,6 +10,7 @@ class Users:
 		password=sha.new(salt).hexdigest()+sha.new(password).hexdigest()
 		try:
 			st=str(m.db.users.save({'name':name,'email':email,'password':password,'username':username}))
-			return json.dumps({'_id':st,'status': 'success'})
+			return json.dumps({'_id':st,'status': 'success', 'message':'Successfully registered. Please wait...'})
 		except:
-			return json.dumps({'status': 'error'})
+			return json.dumps({'status': 'error', 'message': 'There was an error. Please try again later...'})
+			
