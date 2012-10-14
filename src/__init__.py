@@ -89,6 +89,10 @@ def get_userinfo(param):
 	else:
 		return ""
 	
+@app.route("/<username>")
+def public_profile(username):
+	return "Hello "+username	
+
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
 	app.jinja_env.globals.update(get_userinfo=get_userinfo)
