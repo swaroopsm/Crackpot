@@ -21,8 +21,12 @@ mongo=PyMongo(app)
 
 @app.route("/")
 def index():
-	return render_template("home.html",title="Crackpot | Welcome Crackster!")
-	
+	return render_template("home.html", title="Crackpot | Welcome Crackster!")
+
+@app.route("/login")
+def login():
+	return render_template("login.html", title="Cracpot | Login")
+
 @app.route("/signup")
 def signup():
 	return render_template("signup.html", title="Crackpot | New Registration")
