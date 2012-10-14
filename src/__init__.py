@@ -70,6 +70,16 @@ def new_user():
 	username=request.form['username']
 	a=u.new(mongo,name,email,password,username)
 	return a
+
+@app.route("/profile", methods=['GET','POST'])
+def profile():
+	try:
+		if session['loggedin'] == True:
+			return render_template("profile.html", title="Crackpot | Profile", username=session['username'])
+		else:
+			return redirect(url_for("index"))
+	except KeyError:
+		return redirect(url_for("index"))
 	
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
