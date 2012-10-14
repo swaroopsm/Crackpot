@@ -11,7 +11,6 @@ from Users import Users as u
 from Sessions import Sessions as se
 
 app=Flask("Crackpot")
-app.secret_key=s.APP_SECRET_KEY
 
 app.config['MONGO_HOST']=s.MONGO_HOST
 app.config['MONGO_PORT']=s.MONGO_PORT
@@ -34,7 +33,7 @@ def signup():
 	return render_template("signup.html", title="Crackpot | New Registration")
 
 @app.route("/session", methods=['POST','GET'])
-def session():
+def login_session():
 	if request.method=='GET':
 		return redirect(url_for('login'))
 	if request.method=='POST':
@@ -42,7 +41,11 @@ def session():
 		password=request.form['inputPassword']
 		a=se.login(mongo,loginID,password)
 		if a['status'] == True:
-			
+			session['loggedin'] = True
+			session['username'] = a['username']
+			return render_template("login.html", title="Crackpot | "+a['username'])
+		else:
+			return render_template("login.html", error="Invalid Login	")
 
 @app.route("/new_user", methods=['POST'])
 def new_user():
@@ -54,5 +57,6 @@ def new_user():
 	return a
 	
 if __name__=="__main__":
+	app.secret_key=s.APP_SECRET_KEY
 	app.debug=True
 	app.run()
