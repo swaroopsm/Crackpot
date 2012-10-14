@@ -15,6 +15,8 @@ class Sessions:
 			for i in z:
 				del i['_id']
 				l.update(i)
-			return l['username']
+			l.update({"status": True})
+			return l
 		else:
-			return False
+			n={"status": False}
+			return n
