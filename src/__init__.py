@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask.ext.pymongo import PyMongo
-import settings as s
+import settings as s, md5
 
 import sys
 sys.path.insert(0,"wrappers/")
@@ -31,7 +31,7 @@ def index():
 
 @app.route("/login")
 def login():
-	return render_template("login.html", title="Cracpot | Login")
+	return render_template("login.html", title="Crackpot | Login")
 
 @app.route("/logout")
 def logout():
@@ -58,6 +58,7 @@ def login_session():
 		if a['status'] == True:
 			session['loggedin'] = True
 			session['username'] = a['username']
+			session['email_hash'] = md5.new(a['email'].lower()).hexdigest()
 			return redirect(url_for("index"))
 		else:
 			return render_template("login.html", error="Invalid Login	")
