@@ -81,8 +81,16 @@ def profile():
 			return redirect(url_for("index"))
 	except KeyError:
 		return redirect(url_for("index"))
+
+def get_userinfo(param):
+	a=u.get_userinfo(mongo,session['username'])
+	if param in a:
+		return a[param]
+	else:
+		return ""
 	
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
+	app.jinja_env.globals.update(get_userinfo=get_userinfo)
 	app.debug=True
 	app.run()
