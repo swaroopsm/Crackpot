@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flask.ext.pymongo import PyMongo
 import settings as s
 
@@ -30,6 +30,12 @@ def login():
 @app.route("/signup")
 def signup():
 	return render_template("signup.html", title="Crackpot | New Registration")
+
+@app.route("/session", methods=['POST','GET'])
+def session():
+	if request.method=='GET':
+		return redirect(url_for('login'))
+	return render_template("login.html", title="Cracpot | Login", error="Invalid...")
 
 @app.route("/new_user", methods=['POST'])
 def new_user():
