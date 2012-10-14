@@ -22,7 +22,12 @@ mongo=PyMongo(app)
 
 @app.route("/")
 def index():
-	return render_template("home.html", title="Crackpot | Welcome Crackster!")
+	try:
+		if session['loggedin'] == True:
+			return render_template("user.html", title="Crackpot", username=session['username'])
+		return render_template("home.html", title="Crackpot | Welcome Crackster!")
+	except KeyError:
+		return render_template("home.html", title="Crackpot | Welcome Crackster!")
 
 @app.route("/login")
 def login():
