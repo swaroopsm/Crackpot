@@ -33,6 +33,16 @@ def index():
 def login():
 	return render_template("login.html", title="Cracpot | Login")
 
+@app.route("/logout")
+def logout():
+	try:
+		if session['loggedin'] == True:
+			session.pop('loggedin', None)
+			session.pop('username', None)
+		return redirect(url_for("index"))
+	except KeyError:
+		return redirect(url_for("index"))
+
 @app.route("/signup")
 def signup():
 	return render_template("signup.html", title="Crackpot | New Registration")
