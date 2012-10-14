@@ -8,6 +8,7 @@ import sys
 sys.path.insert(0,"wrappers/")
 
 from Users import Users as u
+from Sessions import Sessions as se
 
 app=Flask("Crackpot")
 
@@ -35,7 +36,13 @@ def signup():
 def session():
 	if request.method=='GET':
 		return redirect(url_for('login'))
-	return render_template("login.html", title="Cracpot | Login", error="Invalid...")
+	if request.method=='POST':
+		loginID=request.form['inputLoginID']
+		password=request.form['inputPassword']
+		a=se.login(mongo,loginID,password)
+		if a==1:
+			
+	return render_template("login.html", title="Crackpot")
 
 @app.route("/new_user", methods=['POST'])
 def new_user():
