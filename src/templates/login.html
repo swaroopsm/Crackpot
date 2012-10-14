@@ -1,0 +1,39 @@
+{% include "layouts/header.html" %}
+<body>
+	{% include "layouts/navbar.html" %}
+	<div class="container">
+		<br>
+		<center><div id="js-messages" class="span11">
+			{% if error %}
+				<br><span class="alert alert-danger span10"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ error }}</b></span>
+			{% endif %}
+		</div></center>
+		<div class="well">
+			<center><form id="login_form" class="form" method="POST">
+				<legend>Login Crackster!</legend>
+				<div class="control-group">
+					<div class="controls">
+						<input type="text" id="inputLoginID" placeholder="Your Username or Email" class="span5">
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<input type="password" id="inputPassword" placeholder="Your Password" class="span5">
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn btn-success">Login &raquo;</button>
+					</div>
+				</div>
+			</form></center>
+		</div>
+	</div>
+	{% include "layouts/footer.html" %}
+	<script>
+		$(document).ready(function(){
+			$("#inputLoginID").focus();
+		});
+	</script>
+</body>
+</html>
