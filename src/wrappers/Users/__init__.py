@@ -21,4 +21,12 @@ class Users:
 				return json.dumps({'_id':st,'status': 'success', 'message':'Successfully registered. Please wait...'})
 			except:
 				return json.dumps({'status': 'error', 'message': 'There was an error. Please try again later...'})
-			
+				
+	@staticmethod
+	def get_userinfo(m, username):
+		st=m.db.users.find({'username': username})
+		d={}
+		for i in st:
+			del i['_id']
+			d.update(i)
+		return d
