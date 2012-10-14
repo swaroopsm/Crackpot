@@ -2,8 +2,12 @@
 {% include "layouts/user_navbar.html" %}
 <body>
 <div class="container" style="padding-top: 10px;">
-	<form class="form">
+	<form class="form" id="profile_update_form">
 	<legend>Public Profile</legend>
+	<div class="control-group" style="float: right; position: relative;margin-right: 20px;">
+    <img class="thumbnail" src="http://gravatar.com/avatar/{{ session.email_hash }}/?s=160" />
+    <p><center><a href="http://gravatar.com" target="_BLANK">Change Avatar</a></center></p>
+  </div>
 	<div class="control-group">
     <label class="control-label" for="inputEmail">Name</label>
     <div class="controls">
@@ -17,8 +21,25 @@
     </div>
   </div>
   <div class="control-group">
+    <label class="control-label" for="inputBio">Bio</label>
     <div class="controls">
-      <button type="submit" class="btn">Sign in</button>
+      <textarea class="span4" rows="6" maxlength="140" id="inputBio" placeholder="Maximum of 140 characters">{{ get_userinfo(bio) }}</textarea>
+    </div>
+  </div>
+ 	<div class="control-group">
+    <label class="control-label" for="inputWebsiteURL">Website URL</label>
+    <div class="controls">
+      <input type="text" id="inputWebsiteURL" value="{{ get_userinfo('website') }}">
+    </div>
+ 	</div>
+ 	 <div class="control-group">
+    <label class="control-label" for="inputLocation">Location</label>
+    <div class="controls">
+      <input type="text" id="inputLocation" value="{{ get_userinfo('location') }}">
+    </div>
+ 	 </div>
+    <div class="controls">
+      <button type="submit" class="btn">Update &raquo;</button>
     </div>
   </div>
 </form>
