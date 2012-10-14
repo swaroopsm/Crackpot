@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask.ext.pymongo import PyMongo
 import settings as s
 
@@ -11,6 +11,7 @@ from Users import Users as u
 from Sessions import Sessions as se
 
 app=Flask("Crackpot")
+app.secret_key=s.APP_SECRET_KEY
 
 app.config['MONGO_HOST']=s.MONGO_HOST
 app.config['MONGO_PORT']=s.MONGO_PORT
@@ -40,9 +41,8 @@ def session():
 		loginID=request.form['inputLoginID']
 		password=request.form['inputPassword']
 		a=se.login(mongo,loginID,password)
-		if a==1:
+		if a['status'] == True:
 			
-	return render_template("login.html", title="Crackpot")
 
 @app.route("/new_user", methods=['POST'])
 def new_user():
