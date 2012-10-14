@@ -48,7 +48,7 @@ def login_session():
 		if a['status'] == True:
 			session['loggedin'] = True
 			session['username'] = a['username']
-			return render_template("login.html", title="Crackpot | "+a['username'])
+			return redirect(url_for("index"))
 		else:
 			return render_template("login.html", error="Invalid Login	")
 
