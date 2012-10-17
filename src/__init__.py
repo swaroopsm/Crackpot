@@ -92,9 +92,11 @@ def get_userinfo(param):
 	a=u.get_userinfo(mongo,session['username'])
 	if param in a:
 		return a[param]
+	elif param=="email_hash":
+		return md5.new(a['email']).hexdigest()
 	else:
 		return ""
-	
+
 @app.route("/<username>")
 def public_profile(username):
 	return "Hello "+username	
