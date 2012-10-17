@@ -26,7 +26,7 @@ class Users:
 	def update(m,username,name,email,bio,url,location):
 		try:
 			m.db.users.update({"username": username}, {'$set': {"name": name, "email": email, "bio": bio, "url": url, "location": location }})
-			return json.dumps({'status': 'success', 'message': 'Updated successfully'})
+			return json.dumps({'status': 'success', 'message': 'Profile information updated successfully'})
 		except:
 			return json.dumps({'status': 'error', 'message': 'There was an error. Please try again later...'})
 				
