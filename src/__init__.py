@@ -104,7 +104,7 @@ def update_profile():
 	bio=request.form['bio']
 	url=request.form['url']
 	location=request.form['location']
-	return location
+	return u.update(mongo,session['username'],name,email,bio,url,location)
 
 @app.route("/<username>")
 def public_profile(username):
