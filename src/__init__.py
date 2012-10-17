@@ -31,7 +31,13 @@ def index():
 
 @app.route("/login")
 def login():
-	return render_template("login.html", title="Crackpot | Login")
+	try:
+		if session['loggedin'] == True:
+			return redirect(url_for("index"))
+		else:
+			return render_template("login.html", title="Crackpot | Login")
+	except KeyError:
+		return render_template("login.html", title="Crackpot | Login")
 
 @app.route("/logout")
 def logout():
