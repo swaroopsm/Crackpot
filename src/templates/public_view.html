@@ -1,9 +1,32 @@
 {% include "layouts/header.html" %}
-{% include "layouts/user_navbar.html" %}
+{% if session['loggedin']==True %}
+	{% include "layouts/user_navbar.html" %}
+{% else %}
+	{% include "layouts/navbar.html"%}
+{% endif %}
 <body>
 <div class="container">
-	
-	<hr>
+	{% if info %}
+		<div class="span11">
+			<div class="span3">
+				<img src="http://gravatar.com/avatar/{{ info.email_hash }}?s=180" class="thumbnail"/>
+			</div>
+			<div class="span6" style="margin-left: -10px;">
+				<h3>{{ info.name }}</h4>
+				<p>{{ info.bio }}</p>
+					<p>
+						{% if info.url!=""%}
+							<small><a href="{{ info.url }}" target="_BLANK">{{ info.url }}</a></small>
+						{% endif %}
+						{% if info.location!=""%}
+							<small> | {{ info.location }}</small>
+						{% endif %}
+					</p>
+			</div>
+		</div>
+	{% endif %}
+	<br>
+	<hr class="span11">
 </div>
 {% include "layouts/footer.html" %}
 </body>
