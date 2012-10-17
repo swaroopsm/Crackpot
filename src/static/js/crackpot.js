@@ -2073,10 +2073,16 @@ $(document).ready(function(){
 			$("#js-messages").html("<span class='alert alert-danger'>You cannot leave Name or Email fields empty</span>").hide().fadeIn(500);
 		}
 		else{
+			$("#loader").show();
 			$.post("/update_profile", {name: name, email: email, bio: $("#inputBio").val(), url: $("#inputWebsiteURL").val(), location: $("#inputLocation").val()},
 			function(data){
-				console.log(data);
+				var obj=$.parseJSON(data);
+				if(obj.status == "success")
+					$("#js-messages").html("<span class='alert alert-success span11'><button type='button'class='close' data-dismiss='alert'>&times;</button>"+obj.message+"</span>").hide().fadeIn(500);
+				else
+					$("#js-messages").html("<span class='alert alert-danger span11'><button type='button'class='close' data-dismiss='alert'>&times;</button>"+obj.message+"</span>").hide().fadeIn(500)
 			});
+			$("#loader").fadeOut(500);
 		}
 		return false;
 	});
