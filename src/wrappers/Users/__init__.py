@@ -21,6 +21,14 @@ class Users:
 				return json.dumps({'_id':st,'status': 'success', 'message':'Successfully registered. Please wait...'})
 			except:
 				return json.dumps({'status': 'error', 'message': 'There was an error. Please try again later...'})
+	
+	@staticmethod
+	def update(m,username,name,email,bio,url,location):
+		try:
+			m.db.users.update({"username": username}, {'$set': {"name": name, "email": email, "bio": bio, "url": url, "location": location }})
+			return json.dumps({'status': 'success', 'message': 'Updated successfully'})
+		except:
+			return json.dumps({'status': 'error', 'message': 'There was an error. Please try again later...'})
 				
 	@staticmethod
 	def get_userinfo(m, username):
