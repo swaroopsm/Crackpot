@@ -109,8 +109,9 @@ def update_profile():
 @app.route("/<username>")
 def public_profile(username):
 	a=u.view(mongo,username)
+	a.update({'email_hash': md5.new(a['email']).hexdigest()})
 	try:
-		return render_template("public_view.html", title="Cracpot | "+a['name'])
+		return render_template("public_view.html", title="Cracpot | "+a['name'], info=a)
 	except:
 		return render_template("public_view.html", title="Cracpot | Not Found")
 
