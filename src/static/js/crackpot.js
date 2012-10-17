@@ -2065,6 +2065,21 @@ $(document).ready(function(){
 		$("#loader").fadeOut(500);
 		return false;
 	});
+	
+	$("form#profile_update_form").live("submit", function(){
+		var name=$.trim($("#inputName").val());
+		var email=$.trim($("#inputEmail").val());
+		if(name == '' || email == ''){
+			$("#js-messages").html("<span class='alert alert-danger'>You cannot leave Name or Email fields empty</span>").hide().fadeIn(500);
+		}
+		else{
+			$.post("/update_profile", {name: name, email: email, bio: $("#inputBio").val(), url: $("#inputWebsiteURL").val(), location: $("#inputLocation").val()},
+			function(data){
+				console.log(data);
+			});
+		}
+		return false;
+	});
+	
 });
-
 
