@@ -29,7 +29,16 @@ class Users:
 			return json.dumps({'status': 'success', 'message': 'Profile information updated successfully'})
 		except:
 			return json.dumps({'status': 'error', 'message': 'There was an error. Please try again later...'})
-				
+	
+	@staticmethod
+	def view(m,username):
+		a=m.db.users.find({'username': username})
+		info={}
+		for i in a:
+			del i['_id']
+		 	info.update(i)
+		return info
+			
 	@staticmethod
 	def get_userinfo(m, username):
 		st=m.db.users.find({'username': username})
