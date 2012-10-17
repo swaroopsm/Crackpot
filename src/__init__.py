@@ -97,6 +97,15 @@ def get_userinfo(param):
 	else:
 		return ""
 
+@app.route("/update_profile", methods=['POST'])
+def update_profile():
+	name=request.form['name']
+	email=request.form['email']
+	bio=request.form['bio']
+	url=request.form['url']
+	location=request.form['location']
+	return location
+
 @app.route("/<username>")
 def public_profile(username):
 	return "Hello "+username	
