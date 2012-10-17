@@ -108,7 +108,11 @@ def update_profile():
 
 @app.route("/<username>")
 def public_profile(username):
-	return render_template("public_view.html", title="Cracpot | "+username)
+	a=u.view(mongo,username)
+	try:
+		return render_template("public_view.html", title="Cracpot | "+a['name'])
+	except:
+		return render_template("public_view.html", title="Cracpot | Not Found")
 
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
