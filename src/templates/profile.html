@@ -24,13 +24,13 @@
   <div class="control-group">
     <label class="control-label" for="inputBio">Bio</label>
     <div class="controls">
-      <textarea class="span4" rows="6" maxlength="140" id="inputBio" placeholder="Maximum of 140 characters">{{ get_userinfo(bio) }}</textarea>
+      <textarea class="span4" rows="6" maxlength="140" id="inputBio" placeholder="Maximum of 140 characters">{{ get_userinfo('bio') }}</textarea>
     </div>
   </div>
  	<div class="control-group">
     <label class="control-label" for="inputWebsiteURL">Website URL</label>
     <div class="controls">
-      <input type="text" id="inputWebsiteURL" value="{{ get_userinfo('website') }}">
+      <input type="text" id="inputWebsiteURL" value="{{ get_userinfo('url') }}">
     </div>
  	</div>
  	 <div class="control-group">
