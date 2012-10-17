@@ -108,7 +108,7 @@ def update_profile():
 
 @app.route("/<username>")
 def public_profile(username):
-	return "Hello "+username	
+	return render_template("public_view.html", title="Cracpot | "+username)
 
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
