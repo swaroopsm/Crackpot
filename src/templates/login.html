@@ -3,11 +3,7 @@
 	{% include "layouts/navbar.html" %}
 	<div class="container">
 		<br>
-		<center><div id="js-messages" class="span11">
-			{% if error %}
-				<br><span class="alert alert-danger span10"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ error }}</b></span>
-			{% endif %}
-		</div></center>
+		<center>{% include "layouts/messages.html" %}</center>
 		<div class="well">
 			<center><form id="login_form" class="form" method="POST" action="/session">
 				<legend>Login Crackster!</legend>
