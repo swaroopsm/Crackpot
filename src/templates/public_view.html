@@ -15,11 +15,12 @@
 				<h3>{{ info.name }}</h4>
 				<p>{{ info.bio }}</p>
 					<p>
-						{% if info.url!=""%}
+						{% if info.url %}
 							<small><a href="{{ info.url }}" target="_BLANK">{{ info.url }}</a></small>
 						{% endif %}
-						{% if info.location!=""%}
+						{% if info.location %}
 							<small> | {{ info.location }}</small>
+						
 						{% endif %}
 					</p>
 			</div>
