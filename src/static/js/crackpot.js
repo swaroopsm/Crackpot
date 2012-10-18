@@ -2089,13 +2089,18 @@ $(document).ready(function(){
 	
 	$("#sub_unsub_btn").live("click", function(){
 		var user=$(this).attr("data-user");
-		$.post("/subscribe", {subscribe: user},
-		function(data){
-			var obj=$.parseJSON(data);
-			if(obj.status=="success"){
-				$("#sub_unsub_btn").html("<button class='btn btn-danger'>Unsubscribe</button>").hide().fadeIn(500);
-			}
-		});
+		var myvalue=$(this).children(":first").attr("data-value");
+		if(myvalue=="subscribe"){
+			$.post("/subscribe", {subscribe: user},
+			function(data){
+				var obj=$.parseJSON(data);
+				if(obj.status=="success"){
+					$("#sub_unsub_btn").html("<button class='btn btn-danger' data-value='unsubscribe'>Unsubscribe</button>").hide().fadeIn(500);
+				}
+			});
+		}else{
+			
+		}
 	});
 	return false;
 });
