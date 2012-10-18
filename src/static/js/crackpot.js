@@ -2097,6 +2097,9 @@ $(document).ready(function(){
 				if(obj.status=="success"){
 					$("#sub_unsub_btn").html("<button class='btn btn-danger' data-value='unsubscribe'>Unsubscribe</button>").hide().fadeIn(500);
 				}
+				if(obj.status=="loggedin_error"){
+					window.location=obj.url;
+				}
 			});
 		}else{
 			
