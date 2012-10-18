@@ -26,7 +26,7 @@
 			</div>
 			<div class="span1" style="float: right;">
 				{% if info.username != session['username'] %}
-					<a href="#" id="sub_unsub_btn"><button class="btn btn-info">Subscribe</button></a>
+					<a href="#" id="sub_unsub_btn" data-user="{{ info.username }}"><button class="btn btn-info">Subscribe</button></a>
 				{% endif %}
 			</div>
 		</div>
