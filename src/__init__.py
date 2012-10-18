@@ -106,11 +106,16 @@ def update_profile():
 	location=request.form['location']
 	return u.update(mongo,session['username'],name,email,bio,url,location)
 
+@app.route("/subscribe", methods=['POST'])
+def subscribe():
+	name=request.form['subscribe']
+	return u.subscribe(mongo,session['username'],name)
+
 @app.route("/<username>")
 def public_profile(username):
-	a=u.view(mongo,username)
-	a.update({'email_hash': md5.new(a['email']).hexdigest()})
 	try:
+		a=u.view(mongo,username)
+		a.update({'email_hash': md5.new(a['email']).hexdigest()})
 		return render_template("public_view.html", title="Cracpot | "+a['name'], info=a)
 	except:
 		return render_template("public_view.html", title="Cracpot | Not Found")
