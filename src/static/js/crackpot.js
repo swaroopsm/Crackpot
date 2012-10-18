@@ -2091,9 +2091,12 @@ $(document).ready(function(){
 		var user=$(this).attr("data-user");
 		$.post("/subscribe", {subscribe: user},
 		function(data){
-			console.log(data);
+			var obj=$.parseJSON(data);
+			if(obj.status=="success"){
+				$("#sub_unsub_btn").html("<button class='btn btn-danger'>Unsubscribe</button>").hide().fadeIn(500);
+			}
 		});
 	});
-	
+	return false;
 });
 
