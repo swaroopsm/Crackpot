@@ -2087,5 +2087,13 @@ $(document).ready(function(){
 		return false;
 	});
 	
+	$("#sub_unsub_btn").live("click", function(){
+		var user=$(this).attr("data-user");
+		$.post("/subscribe", {subscribe: user},
+		function(data){
+			console.log(data);
+		});
+	});
+	
 });
 
