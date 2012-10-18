@@ -38,7 +38,16 @@ class Users:
 			del i['_id']
 		 	info.update(i)
 		return info
-			
+	
+	@staticmethod
+	def subscribe(m,username,subscribe):
+		try:
+			m.db.users.update({"username": username}, {"$push": { "following": subscribe}})
+			m.db.users.update({"username": subscribe}, {"$push": {"follower": username}})
+			return json.dumps({"status": "success"})
+		except:
+			return json.dumps({"status": "error"})
+		
 	@staticmethod
 	def get_userinfo(m, username):
 		st=m.db.users.find({'username': username})
