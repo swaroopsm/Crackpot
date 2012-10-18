@@ -3,7 +3,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask.ext.pymongo import PyMongo
 import settings as s, md5
-
+import json
 import sys
 sys.path.insert(0,"wrappers/")
 
@@ -108,8 +108,14 @@ def update_profile():
 
 @app.route("/subscribe", methods=['POST'])
 def subscribe():
-	name=request.form['subscribe']
-	return u.subscribe(mongo,session['username'],name)
+	try:
+		if session['loggedin'] == True:
+			name=request.form['subscribe']
+			return u.subscribe(mongo,session['username'],name)
+		else:
+			return json.dumps({"status": "loggedin_error", "url": "/login"})
+	except KeyError:
+		return json.dumps({"status": "loggedin_error", "url": "/login"})
 
 @app.route("/<username>")
 def public_profile(username):
