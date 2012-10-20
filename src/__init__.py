@@ -134,6 +134,12 @@ def get_followers():
 	except KeyError:
 		return json.dumps({"success": "error"})
 
+@app.route("/my_info", methods=['POST'])
+def my_info():
+	a=u.view(mongo,session['username'])	
+	a.update({'email_hash': md5.new(a['email']).hexdigest()})
+	return json.dumps(a)
+
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
 	app.jinja_env.globals.update(get_userinfo=get_userinfo)
