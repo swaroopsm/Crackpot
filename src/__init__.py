@@ -120,11 +120,20 @@ def subscribe():
 @app.route("/<username>")
 def public_profile(username):
 	try:
-		a=u.view(mongo,username)
+		a=u.view(mongo,username)	
 		a.update({'email_hash': md5.new(a['email']).hexdigest()})
 		return render_template("public_view.html", title="Cracpot | "+a['name'], info=a)
 	except:
 		return render_template("public_view.html", title="Cracpot | Not Found")
+
+@app.route("/get_followers",methods=['POST'])
+def get_followers():
+	try:
+		if session['loggedin']  == True:
+			a=u.user_followers(mongo,session['username'])
+			return json.dumps(a)
+	except KeyError:
+		return json.dumps({"success": "error"})
 
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
