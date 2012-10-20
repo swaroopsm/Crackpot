@@ -41,16 +41,21 @@
 		$.post("/get_followers", function(data){
 			var obj=$.parseJSON(data);
 			if(obj.success=="error"){
-				$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-success" data-value="subscribe">Subscribe</button></a>').hide().fadeIn(500);
+				$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').hide().fadeIn(500);
 			}
 			else{
-				for(var i=0;i<obj.following.length;i++){
+				if(obj.following){
+					for(var i=0;i<obj.following.length;i++){
 					if($("#my_username").val() == obj.following[i]){
 						$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-danger" data-value="unsubscribe">Unsubscribe</button></a>').hide().fadeIn(500);
 						return;
 					}
+				}	
 				}
-				$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-success" data-value="subscribe">Subscribe</button></a>').hide().fadeIn(500);
+				else{
+					$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').hide().fadeIn(500);
+				}
+				
 			}
 		});		
 </script>
