@@ -56,3 +56,12 @@ class Users:
 			del i['_id']
 			d.update(i)
 		return d
+		
+	@staticmethod
+	def user_followers(m,username):
+		d={}
+		a=m.db.users.find({"username": username},{"follower": 1})
+		for i in a:
+			del i['_id']
+			d.update(i)
+		return d
