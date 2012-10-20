@@ -7,6 +7,7 @@
 <body>
 <div class="container">
 	{% if info %}
+		<input type="hidden" id="my_username" value="{{ info.username }}">
 		<div class="span11">
 			<div class="span3">
 				<img src="http://gravatar.com/avatar/{{ info.email_hash }}?s=180" class="thumbnail"/>
@@ -26,7 +27,8 @@
 			</div>
 			<div class="span1" style="float: right;">
 				{% if info.username != session['username'] %}
-					<a href="#" id="sub_unsub_btn" data-user="{{ info.username }}"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>
+					<div id="sub_unsub_div"><img src="./static/img/loader.gif" /></div>
+					
 				{% endif %}
 			</div>
 		</div>
@@ -35,5 +37,22 @@
 	<hr class="span11">
 </div>
 {% include "layouts/footer.html" %}
+<script>
+		$.post("/get_followers", function(data){
+			var obj=$.parseJSON(data);
+			if(obj.status=="error"){
+				
+			}
+			else{
+				for(var i=0;i<obj.following.length;i++){
+					if($("#my_username").val() == obj.following[i]){
+						$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-danger" data-value="unsubscribe">Unsubscribe</button></a>').hide().fadeIn(500);
+						return;
+					}
+				}
+				$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-success" data-value="subscribe">Subscribe</button></a>').hide().fadeIn(500);
+			}
+		});		
+</script>
 </body>
 </html>
