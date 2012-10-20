@@ -6,7 +6,7 @@
 	<form class="form" id="profile_update_form">
 	<legend>Public Profile</legend>
 	<div class="control-group" style="float: right; position: relative;margin-right: 20px;">
-    <img class="thumbnail" src="http://gravatar.com/avatar/{{ session.email_hash }}/?s=160" />
+    <img class="thumbnail" src="http://gravatar.com/avatar/{{ get_userinfo('email_hash') }}/?s=160" />
     <p><center><a href="http://gravatar.com" target="_BLANK">Change Avatar</a></center></p>
   </div>
 	<div class="control-group">
