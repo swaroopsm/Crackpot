@@ -64,7 +64,6 @@ def login_session():
 		if a['status'] == True:
 			session['loggedin'] = True
 			session['username'] = a['username']
-			session['email_hash'] = md5.new(a['email'].lower()).hexdigest()
 			return redirect(url_for("index"))
 		else:
 			return render_template("login.html", error="Invalid Login	")
