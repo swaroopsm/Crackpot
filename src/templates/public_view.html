@@ -8,6 +8,13 @@
 <div class="container">
 	{% if info %}
 		<input type="hidden" id="my_username" value="{{ info.username }}">
+		<input type="hidden" id="my_bio" value="{{ info.bio }}">
+		<input type="hidden" id="my_name" value="{{ info.name }}">
+		<input type="hidden" id="my_avatar" value="http://gravatar.com/avatar/{{ info.email_hash }}/?s=50">
+		
+		<input type="hidden" id="ref_name" value="{{ get_userinfo('name') }}">
+		<input type="hidden" id="ref_bio" value="{{ get_userinfo('bio') }}">
+		<input type="hidden" id="ref_avatar" value="http://gravatar.com/avatar/{{ get_userinfo('email_hash') }}/?s=50">
 		<div class="span11">
 			<div class="span3">
 				<img src="http://gravatar.com/avatar/{{ info.email_hash }}?s=180" class="thumbnail"/>
