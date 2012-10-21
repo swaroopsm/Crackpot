@@ -150,7 +150,7 @@ def my_info():
 def my_followers():
 	try:
 		if session['loggedin'] == True:
-			return render_template("my_followers.html", title="Crackpot | Subscriptions")
+			return render_template("my_subscriptions.html", title="Crackpot | Subscriptions")
 	except KeyError:
 		return ""
 
