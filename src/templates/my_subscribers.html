@@ -31,7 +31,7 @@
 			for(var i in obj.follower){
 			$("#subscribers_div").append("<p><a href='/"+obj.follower[i].user+"'><img style='width: 50px;height: 50px;display: inline-block;' src='"+obj.follower[i].avatar+"' class='thumbnail' style='display: inline-block;'></img></a>&nbsp;&nbsp;<a href='/"+obj.follower[i].user+"' style='margin-top: 8px;position: absolute'>"+obj.follower[i].name+"</a><a href='#' id='block_btn' class='pull-right' data-user=' style='margin-top: 50px;'"+obj.follower[i].user+"'><button style='margin-top: 10px;' class='btn btn-danger btn-small' data-value='block'>Block</button></a><br><span class='pull-right' style='padding-right: 125px;width: 430px;padding-left: 70px;margin-top: -30px;color: #666; font-style: italic;'>"+obj.follower[i].bio+"</span><div style='border-bottom: 1px solid #ececec;padding: 10px;'></div></p>");
 		}
-		$("img#loader").fadeOut(200);
+		$("img#loader").hide();
 		$("#subscribers_div").hide().fadeIn(500);
 		}
 	});
