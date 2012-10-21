@@ -146,7 +146,7 @@ def my_info():
 	a.update({'email_hash': md5.new(a['email']).hexdigest()})
 	return json.dumps(a)
 
-@app.route("/subscribers", methods=['POST','GET'])
+@app.route("/subscriptions", methods=['POST','GET'])
 def my_followers():
 	try:
 		if session['loggedin'] == True:
