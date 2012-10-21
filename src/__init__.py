@@ -161,6 +161,14 @@ def my_subscribers():
 			return render_template("my_subscribers.html", title="Cracpot | Subscribers")
 	except KeyError:
 		return redirect(url_for("login"))
+		
+@app.route("/get_subscribers", methods=['POST'])
+def get_subscribers():
+	try:
+		if session['loggedin'] == True:
+			return json.dumps(u.user_subscribers(mongo,session['username']))
+	except KeyError:
+		return json.dumps({"status": "error"})
 
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
