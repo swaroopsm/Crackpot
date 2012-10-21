@@ -140,6 +140,14 @@ def my_info():
 	a.update({'email_hash': md5.new(a['email']).hexdigest()})
 	return json.dumps(a)
 
+@app.route("/subscribers", methods=['POST','GET'])
+def my_followers():
+	try:
+		if session['loggedin'] == True:
+			return render_template("my_followers.html", title="Crackpot | Subscribers")
+	except KeyError:
+		return ""
+
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
 	app.jinja_env.globals.update(get_userinfo=get_userinfo)
