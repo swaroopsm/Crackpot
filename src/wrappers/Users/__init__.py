@@ -40,10 +40,10 @@ class Users:
 		return info
 	
 	@staticmethod
-	def subscribe(m,username,subscribe):
+	def subscribe(m,username,subscribe,user_name,user_bio,user_avatar, ref_name, ref_bio, ref_avatar):
 		try:
-			m.db.users.update({"username": username}, {"$push": { "following": subscribe}})
-			m.db.users.update({"username": subscribe}, {"$push": {"follower": username}})
+			m.db.users.update({"username": username}, {"$push": { "following": {'user': subscribe, 'name': user_name, 'bio': user_bio, 'avatar': user_avatar}}})
+			m.db.users.update({"username": subscribe}, {"$push": {"follower": {'user': username, 'name': ref_name, 'bio': ref_bio, 'avatar': ref_avatar}}})
 			return json.dumps({"status": "success"})
 		except:
 			return json.dumps({"status": "error"})
