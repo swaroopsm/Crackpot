@@ -154,11 +154,11 @@ def my_followers():
 	except KeyError:
 		return ""
 		
-@app.route("/subscribers", methods=['POST','GET']
+@app.route("/subscribers", methods=['POST','GET'])
 def my_subscribers():
 	try:
 		if session['loggedin'] == True:
-			return render_template("my_subscribers,html", title="Cracpot | Subscribers")
+			return render_template("my_subscribers.html", title="Cracpot | Subscribers")
 	except KeyError:
 		return redirect(url_for("login"))
 
