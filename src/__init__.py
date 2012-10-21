@@ -153,6 +153,14 @@ def my_followers():
 			return render_template("my_subscriptions.html", title="Crackpot | Subscriptions")
 	except KeyError:
 		return ""
+		
+@app.route("/subscribers", methods=['POST','GET']
+def my_subscribers():
+	try:
+		if session['loggedin'] == True:
+			return render_template("my_subscribers,html", title="Cracpot | Subscribers")
+	except KeyError:
+		return redirect(url_for("login"))
 
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
