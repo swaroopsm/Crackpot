@@ -110,7 +110,13 @@ def subscribe():
 	try:
 		if session['loggedin'] == True:
 			name=request.form['subscribe']
-			return u.subscribe(mongo,session['username'],name)
+			user_name=request.form['name']
+			user_bio=request.form['bio']
+			user_avatar=request.form['avatar']
+			ref_name=request.form['ref_name']
+			ref_bio=request.form['ref_bio']
+			ref_avatar=request.form['ref_avatar']
+			return u.subscribe(mongo,session['username'],name,user_name,user_bio,user_avatar, ref_name, ref_bio, ref_avatar)
 		else:
 			return json.dumps({"status": "loggedin_error", "url": "/login"})
 	except KeyError:
