@@ -2089,9 +2089,15 @@ $(document).ready(function(){
 	
 	$("#sub_unsub_btn").live("click", function(){
 		var user=$(this).attr("data-user");
+		var user_name=$("#my_name").val();
+		var user_bio=$("#my_bio").val();
+		var user_avatar=$("#my_avatar").val();
+		var ref_name=$("#ref_name").val();
+		var ref_bio=$("#ref_bio").val();
+		var ref_avatar=$("#ref_avatar").val();
 		var myvalue=$(this).children(":first").attr("data-value");
 		if(myvalue=="subscribe"){
-			$.post("/subscribe", {subscribe: user},
+			$.post("/subscribe", {subscribe: user, name: user_name, bio: user_bio, avatar: user_avatar, ref_name: ref_name, ref_bio: ref_bio, ref_avatar: ref_avatar},
 			function(data){
 				var obj=$.parseJSON(data);
 				if(obj.status=="success"){
