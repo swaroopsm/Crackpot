@@ -2134,7 +2134,9 @@ $(document).ready(function(){
 		}
 		else{
 			$("#loader").show();
-			$.post("/submit_joke", {joke_title: joke_title, joke_desc: joke, joke_tags: joke_tags},
+			var joke_date=new Date();
+			joke_date=joke_date.toISOString();
+			$.post("/submit_joke", {joke_title: joke_title, joke_desc: joke, joke_tags: joke_tags, joke_date: joke_date},
 		function(data){
 			var obj=$.parseJSON(data);
 			if(obj.status=="success"){
