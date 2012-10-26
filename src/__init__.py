@@ -186,7 +186,8 @@ def submit_joke():
 			joke_title=request.form['joke_title']
 			joke_desc=request.form['joke_desc']
 			joke_tags=request.form['joke_tags'].split(',')
-			a=j.new(mongo,session['username'],joke_title,joke_desc,joke_tags)
+			joke_date=request.form['joke_date']
+			a=j.new(mongo,session['username'],joke_title,joke_desc,joke_tags,joke_date)
 			if a == True:
 				return json.dumps({"status": "success", "msg": "Joke added successfully"})
 			else:
