@@ -2114,9 +2114,15 @@ $(document).ready(function(){
 	});
 	
 	$("#bold_icon_link").live("click",function(){
-		var my_text=$("#joke_textarea").val().substring($("#joke_textarea")[0].selectionStart, $("#joke_textarea")[0].selectionEnd);
-		console.log(my_text);
-		return false;
+		document.execCommand('bold',null,null)
+	});
+	
+	$("#italic_icon_link").live("click",function(){
+		document.execCommand('italic',null,null);
+	});
+	
+	$("#underline_icon_link").live("click",function(){
+		document.execCommand('underline',null,null);
 	});
 	
 });
