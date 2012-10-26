@@ -2125,5 +2125,27 @@ $(document).ready(function(){
 		document.execCommand('underline',null,null);
 	});
 	
+	$("#joke_submit").live("click",function(){
+		$("#loader").show();
+		var joke=$("#joke_textarea").html();
+		var joke_title=$("#joke_title").val();
+		var joke_tags=$("#joke_tags").val();
+		$.post("/submit_joke", {joke_title: joke_title, joke_desc: joke, joke_tags: joke_tags},
+		function(data){
+			var obj=$.parseJSON(data);
+			if(obj.status=="success"){
+				$("#js-messages").html("<center><span class='alert alert-success span7'><a class='close' data-dismiss='alert' href='#'>&times;</a>"+obj.msg+"</span></center>").hide().fadeIn(500);
+				$("#joke_textarea").html('').hide().show();
+				$("#joke_title").val('');
+				$("#joke_tags").val('');
+			}
+			else{
+				$("#js-messages").html("<center><span class='alert alert-danger span7'><a class='close' data-dismiss='alert' href='#'>&times;</a>"+obj.msg+"</span></center>").hide().fadeIn(500);
+			}
+		});
+		$("#loader").fadeOut(200);
+		return false;
+	});
+	
 });
 
