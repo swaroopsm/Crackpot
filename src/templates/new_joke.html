@@ -7,7 +7,8 @@
 		<div id="dashboard_info"></div>
 	</div>
 		<div class="well span8" style="background-color: #fff;"><h4 style="margin-top: -5px;">New Joke!</h4><a class="pull-right" href="#" style="margin-top: -30px;"><i class="icon-home"></i> </a><hr style="margin-top: 0px;">
- 	<center><input type="text" class="span7" placeholder="Joke Title" id="joke_title" /></center>
+		<div id="js-messages"></div>
+ 	<center><input type="text" class="span7" placeholder="Joke Title" id="joke_title" tabindex="1"/></center>
 <div class=" span7" style="background-color: #fff;padding-top: 0px;">
 	<div class="btn-toolbar" style="margin-top: 0px;">
 	<center>
@@ -20,9 +21,9 @@
   </div>
 </div>
  </center>
-	<section class="span6 well" id="joke_textarea" contenteditable="true"></section>
+	<section class="span6 well" id="joke_textarea" contenteditable="true" tabindex="2"></section>
 </div>
-<center><input type="text" class="span7" placeholder="Add tags seperated by a comma" id="joke_tags" /></center>
+<center><input type="text" class="span7" placeholder="Add tags seperated by a comma" id="joke_tags" tabindex="3"/></center>
 <span class="pull-right"><a href="#" id="joke_submit"><button class="btn btn-success">Crack Joke  &raquo;</button></a>&nbsp;<img id="loader" src="./static/img/loader.gif" style="display: none" /></span>
 </div>
 {% include "layouts/footer.html" %}
