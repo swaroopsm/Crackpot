@@ -1,0 +1,28 @@
+{% include "layouts/header.html" %}
+{% include "layouts/user_navbar.html" %}
+<body>
+<div class="container">
+	<div class="span3">
+		<input id="my_username" type="hidden" value="{{ session['username'] }}" />
+		<div id="dashboard_info"></div>
+	</div>
+		<div class="well span8" style="background-color: #fff;"><h4 style="margin-top: -5px;">Crackers</h4><a class="pull-right" href="#" style="margin-top: -30px;"><i class="icon-home"></i> </a><hr style="margin-top: 0px;"></div>
+</div>
+{% include "layouts/footer.html" %}
+<script>
+	$.post("/my_info", function(data){
+		var obj=$.parseJSON(data);
+		var username, follower, following;
+		if(obj.follower)
+			follower=obj.follower.length;
+		else
+			follower=0
+		if(obj.following)
+			following=obj.following.length;
+		else
+			following=0;
+		$("#dashboard_info").html("<center><img style='width: 180px; height: 180px;'src='http://gravatar.com/avatar/"+obj.email_hash+"?size=180' alt='"+obj.name+"' class='thumbnail'></img><hr><h5><a href='/profile'>"+obj.name+"</a> (<a href='/"+obj.username+"'>@"+obj.username+"</a>)</h5><p><a href='/subscribers'>Subscribers: "+follower+"</a></p><p><a href='/subscriptions'>Subscriptions: "+following+"</a></p></center>").show();
+	});
+</script>
+</body>
+</html>
