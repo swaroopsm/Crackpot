@@ -33,10 +33,12 @@ class Users:
 	@staticmethod
 	def view(m,username):
 		a=m.db.users.find({'username': username})
+		c=m.db.jokes.find({'username': username}).count()
 		info={}
 		for i in a:
 			del i['_id']
 		 	info.update(i)
+		info.update({"jokes": c})
 		return info
 	
 	@staticmethod
