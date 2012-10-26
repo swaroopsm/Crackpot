@@ -9,6 +9,7 @@ sys.path.insert(0,"wrappers/")
 
 from Users import Users as u
 from Sessions import Sessions as se
+from Jokes import Jokes as j
 
 app=Flask("Crackpot")
 
@@ -175,6 +176,21 @@ def crack():
 	try:
 		if session['loggedin'] == True:
 			return render_template("new_joke.html", title="Crackpot | Crack a Joke")
+	except KeyError:
+		return redirect(url_for('login'))
+
+@app.route("/submit_joke", methods=['POST'])
+def submit_joke():
+	try:
+		if session['loggedin']==True:
+			joke_title=request.form['joke_title']
+			joke_desc=request.form['joke_desc']
+			joke_tags=request.form['joke_tags'].split(',')
+			a=j.new(mongo,session['username'],joke_title,joke_desc,joke_tags)
+			if a == True:
+				return json.dumps({"status": "success", "msg": "Joke added successfully"})
+			else:
+				return json.dumps({"status": "error", "msg": "There was an error, please try again later"})
 	except KeyError:
 		return redirect(url_for('login'))
 
