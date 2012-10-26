@@ -2110,7 +2110,14 @@ $(document).ready(function(){
 		}else{
 			
 		}
+		return false;
 	});
-	return false;
+	
+	$("#bold_icon_link").live("click",function(){
+		var my_text=$("#joke_textarea").val().substring($("#joke_textarea")[0].selectionStart, $("#joke_textarea")[0].selectionEnd);
+		console.log(my_text);
+		return false;
+	});
+	
 });
 
