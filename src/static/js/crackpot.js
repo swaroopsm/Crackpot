@@ -2126,11 +2126,15 @@ $(document).ready(function(){
 	});
 	
 	$("#joke_submit").live("click",function(){
-		$("#loader").show();
 		var joke=$("#joke_textarea").html();
 		var joke_title=$("#joke_title").val();
 		var joke_tags=$("#joke_tags").val();
-		$.post("/submit_joke", {joke_title: joke_title, joke_desc: joke, joke_tags: joke_tags},
+		if($.trim(joke)=='' || $.trim(joke_title)=='' || $.trim(joke_tags)==''){
+			$("#js-messages").html("<center><span class='alert alert-danger span7'><a class='close' data-dismiss='alert' href='#'>&times;</a>Please fill all fields</span></center>").hide().fadeIn(500);
+		}
+		else{
+			$("#loader").show();
+			$.post("/submit_joke", {joke_title: joke_title, joke_desc: joke, joke_tags: joke_tags},
 		function(data){
 			var obj=$.parseJSON(data);
 			if(obj.status=="success"){
@@ -2143,6 +2147,7 @@ $(document).ready(function(){
 				$("#js-messages").html("<center><span class='alert alert-danger span7'><a class='close' data-dismiss='alert' href='#'>&times;</a>"+obj.msg+"</span></center>").hide().fadeIn(500);
 			}
 		});
+		}
 		$("#loader").fadeOut(200);
 		return false;
 	});
