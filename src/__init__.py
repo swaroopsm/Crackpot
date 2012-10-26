@@ -169,6 +169,14 @@ def get_subscribers():
 			return json.dumps(u.user_subscribers(mongo,session['username']))
 	except KeyError:
 		return json.dumps({"status": "error"})
+		
+@app.route("/crack", methods=['POST','GET'])
+def crack():
+	try:
+		if session['loggedin'] == True:
+			return render_template("new_joke.html", title="Crackpot | Crack a Joke")
+	except KeyError:
+		return redirect(url_for('login'))
 
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
