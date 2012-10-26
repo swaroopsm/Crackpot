@@ -195,6 +195,14 @@ def submit_joke():
 	except KeyError:
 		return redirect(url_for('login'))
 
+@app.route("/jokes")
+def jokes():
+	try:
+		if session['loggedin']==True:
+			return render_template("my_jokes.html")
+	except:
+		return redirect(url_for('login'))
+
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
 	app.jinja_env.globals.update(get_userinfo=get_userinfo)
