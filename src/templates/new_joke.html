@@ -7,19 +7,20 @@
 		<div id="dashboard_info"></div>
 	</div>
 		<div class="well span8" style="background-color: #fff;"><h4 style="margin-top: -5px;">New Joke!</h4><a class="pull-right" href="#" style="margin-top: -30px;"><i class="icon-home"></i> </a><hr style="margin-top: 0px;">
-		<center>
 <div class="well span7" style="background-color: #fff;padding-top: 0px;">
 	<div class="btn-toolbar">
+	<center>
   <div class="btn-group">
     <a class="btn" href="#" title="Bold" id="bold_icon_link"><i class="icon-bold"></i></a>
     <a class="btn" href="#" title="Italic" id="italic_icon_link"><i class="icon-italic"></i></a>
+    <a class="btn" href="#" title="Underline" id="underline_icon_link"><i class="icon-magnet"></i></a>
     <a class="btn" href="#" title="Link" id="resize_icon_link"><i class="icon-resize-small"></i></a>
     <a class="btn" href="#" title="Big Text" id="bigtext_icon_link"><i class="icon-text-height"></i></a>
   </div>
 </div>
-	<textarea class="span7" id="joke_textarea" rows="15"></textarea>
+ </center>
+	<section class="span6 well" id="joke_textarea" contenteditable="true"></section>
 </div>
-  </center>
 </div>
 {% include "layouts/footer.html" %}
 <script>
