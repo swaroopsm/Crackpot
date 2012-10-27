@@ -10,6 +10,7 @@
 </div>
 {% include "layouts/footer.html" %}
 <script src="./static/js/timeago.js"></script>
+<script src="./static/js/timeago.js"></script>
 <script>
 	$.post("/my_info", function(data){
 		var obj=$.parseJSON(data);
@@ -27,7 +28,6 @@
 	
 	$.post("/subscribed_jokes", function(data){
 		var obj=$.parseJSON(data);
-		console.log(obj);
 		$("#crackers_div").html("");
 		for(var i in obj){
 			var tags="";
@@ -46,6 +46,34 @@
 		}
 		$(".date_time_block").timeago();
 		$("#crackers_div").append("<tr></tr>").hide().fadeIn(500);
+		$("#loader").fadeOut(200);
+	});
+	
+	$(".joke_title").live("click", function(){
+		$("#loader").show();	
+		var id=$(this).attr("id");
+		$("table#crackers_div").fadeOut(200);
+		$.post("/complete_joke", {oid: id},
+		function(data){
+			var obj=$.parseJSON(data);
+			var tags="";
+			var href_attr;
+			for(var j in obj.tags){
+				if(j==0){
+					href_attr=obj.tags[j].replace(/ /g,"+");
+				}
+				else{
+					href_attr=obj.tags[j].replace(/ /g,"+");
+					href_attr=href_attr.substring(1,href_attr.length)
+				}
+				tags=tags+"<a href='./tags/"+href_attr+"'>"+obj.tags[j]+"</a>, ";
+			}
+			$("div#complete_joke").html("<div id='single_joke'><p><strong>"+obj.title+"<small> - <a href='./"+obj.username+"'>"+obj.username+" </a></small><br></strong><small>tags: "+tags.substring(0,tags.length-2)+" <span class='date_time_block'>&brvbar;</span> <span class='date_time_block' title="+obj.date+"></span></small><hr></p><p id='my_desc'>"+obj.desc+"</p></div>").hide();
+			$("#single_joke").children().removeAttr("style");
+			$("#my_desc").children().removeAttr("style");
+			$(".date_time_block").timeago();
+			$("div#complete_joke").fadeIn(300);
+		});
 		$("#loader").fadeOut(200);
 	});
 </script>
