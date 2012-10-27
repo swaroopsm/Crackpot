@@ -2031,6 +2031,11 @@
 */
 
 $(document).ready(function(){
+	
+	$(".btn").live("click",function(){
+		window.location.href=$(this).attr('href');
+	});	
+	
 	$("form#signup_form").live("submit",function(){
 		var fields = $("form#signup_form :input");
 		var flag=new Array();
