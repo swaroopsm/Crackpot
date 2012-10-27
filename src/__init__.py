@@ -200,7 +200,7 @@ def submit_joke():
 def jokes():
 	try:
 		if session['loggedin']==True:
-			return render_template("my_jokes.html")
+			return render_template("my_jokes.html", title="Crackpot | My Jokes")
 	except KeyError:
 		return redirect(url_for('login'))
 
