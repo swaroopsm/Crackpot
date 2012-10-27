@@ -2033,7 +2033,9 @@
 $(document).ready(function(){
 	
 	$(".btn").live("click",function(){
-		window.location.href=$(this).attr('href');
+		var link=$(this).attr('href');
+		if(link)
+			window.location.href=$(this).attr('href');
 	});	
 	
 	$("form#signup_form").live("submit",function(){
