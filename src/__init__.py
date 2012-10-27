@@ -211,6 +211,17 @@ def get_jokes():
 	except KeyError:
 		return redirect(url_for('login'))
 
+@app.route("/subscribed_jokes", methods=['POST'])
+def subscribed_jokes():
+	try:
+		a=u.user_followers(mongo,session['username'])
+		d=[]
+		for i in a['following']:
+			d.append(i['user'])
+		return json.dumps(j.my_wall(mongo,d))
+	except KeyError:
+		return json.dumps({"status": "error"})
+
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
 	app.jinja_env.globals.update(get_userinfo=get_userinfo)
