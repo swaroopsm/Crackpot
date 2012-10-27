@@ -6,7 +6,14 @@
 		<input id="my_username" type="hidden" value="{{ session['username'] }}" />
 		<div id="dashboard_info"></div>
 	</div>
-		<div class="well span8" style="background-color: #fff;"><h4 style="margin-top: -5px;">Crackers</h4><center><img id="loader" style="position: absolute;" src="./static/img/loader.gif"/></center><a class="pull-right" href="/crack" style="margin-top: -30px;">Crack a joke &raquo;</a><hr style="margin-top: 0px;"><table class="table table-hover" id="crackers_div" style="margin-top: -10px;"></table><div id="complete_joke"></div></div>
+		<div class="well span8" style="background-color: #fff;"><h4 style="margin-top: -5px;">Crackers</h4><center><img id="loader" style="position: absolute;" src="./static/img/loader.gif"/></center>
+		<div class="btn-group pull-right" style="margin-top: -36px;">
+  <button class="btn" title="Home" href="./"><i class="icon-home"></i></a></button>
+  <button class="btn" title="Crack a joke!" href="./crack"><i class="icon-bullhorn"></i></button>
+</div>
+		<hr style="margin-top: 0px;">
+		<table class="table table-hover" id="crackers_div" style="margin-top: -10px;"></table>
+		<div id="complete_joke"></div></div>
 </div>
 {% include "layouts/footer.html" %}
 <script src="./static/js/timeago.js"></script>
