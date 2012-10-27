@@ -6,7 +6,7 @@
 		<input id="my_username" type="hidden" value="{{ session['username'] }}" />
 		<div id="dashboard_info"></div>
 	</div>
-		<div class="well span8" style="background-color: #fff;"><h4 style="margin-top: -5px;">Crackers</h4><a class="pull-right" href="/crack" style="margin-top: -30px;">Crack a joke &raquo;</a><hr style="margin-top: 0px;"><center><img id="loader" src="./static/img/loader.gif" /></center><div id="crackers_div" style="margin-top: -10px;"></div></div>
+		<div class="well span8" style="background-color: #fff;"><h4 style="margin-top: -5px;">Crackers</h4><a class="pull-right" href="/crack" style="margin-top: -30px;">Crack a joke &raquo;</a><hr style="margin-top: 0px;"><center><img id="loader" src="./static/img/loader.gif" /></center><table class="table table-hover" id="crackers_div" style="margin-top: -10px;"></table></div>
 </div>
 {% include "layouts/footer.html" %}
 <script>
@@ -22,6 +22,17 @@
 		else
 			following=0;
 		$("#dashboard_info").html("<center><img style='width: 180px; height: 180px;'src='http://gravatar.com/avatar/"+obj.email_hash+"?size=180' alt='"+obj.name+"' class='thumbnail'></img><hr><h5><a href='/profile'>"+obj.name+"</a> (<a href='/"+obj.username+"'>@"+obj.username+"</a>)</h5><p><a href='/subscribers'>Subscribers: "+follower+"</a></p><p><a href='/subscriptions'>Subscriptions: "+following+"</a></p><p><a href='/jokes'>Jokes: "+obj.jokes+"</a></p></center>").show();
+	});
+	
+	$.post("/subscribed_jokes", function(data){
+		var obj=$.parseJSON(data);
+		console.log(obj);
+		$("#crackers_div").html("");
+		for(var i in obj){
+			$("#crackers_div").append("<tr><td style='border-top: none; border-bottom: 1px solid #eee;'><a href='/"+obj[i].username+"'><img style='width: 50px;height: 50px;display: inline-block;' src='"+obj[i].avatar+"' class='thumbnail' style='display: inline-block;'></img></a>&nbsp;&nbsp;<a href='#' style='margin-top: 2px;position: absolute'>"+obj[i].title+"</a><br><span class='pull-right' style='padding-right: 125px;width: 430px;padding-left: 70px;margin-top: -30px;color: #666; font-style: italic;'>"+obj[i].desc.replace(/(<([^>]+)>)/ig," ").substring(0,100)+"...</span></p></tr>")
+		}
+		$("#crackers_div").append("<tr></tr>").hide().fadeIn(500);
+		$("#loader").fadeOut(200);
 	});
 </script>
 </body>
