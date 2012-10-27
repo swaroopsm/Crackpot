@@ -6,7 +6,7 @@
 		<input id="my_username" type="hidden" value="{{ session['username'] }}" />
 		<div id="dashboard_info"></div>
 	</div>
-		<div class="well span8" style="background-color: #fff;padding-bottom: 0px;"><h4 style="margin-top: -5px;padding-bottom: 8px;">My Jokes</h4><center><img id="loader" src="./static/img/loader.gif" /></center><table class="table table-hover" id="jokes_div" style="margin-top: -10px;"></div></div>
+		<div class="well span8" style="background-color: #fff;padding-bottom: 0px;"><h4 style="margin-top: -5px;padding-bottom: 10px;">My Jokes</h4><a class="pull-right" href="/crack" style="margin-top: -39px;">Crack a joke &raquo;</a><center><img id="loader" src="./static/img/loader.gif" /></center><table class="table table-hover" id="jokes_div" style="margin-top: -10px;"></div></div>
 </div>
 {% include "layouts/footer.html" %}
 <script src="./static/js/timeago.js"></script>
@@ -28,14 +28,14 @@
 	$.post("/get_jokes", function(data){
 		var obj=$.parseJSON(data);
 		$("#jokes_div").html("");
-		var tags="";
 		for(var i in obj){
 			if(obj[i].tags){
+				var tags="";
 				for(var j in obj[i].tags){
 					tags=tags+"<a href='#'>"+obj[i].tags[j]+"</a>, ";
 				}
 			}
-			$("#jokes_div").append("<tr><td><a href='#'><h5>"+obj[i].title+"</h5></a>"+(obj[i].desc).substring(0,100)+"...<p class='help-block' style='font-size: 12px;color: #777;'><span>tags: "+tags.substring(0,tags.length-1)+"</span> &brvbar; <span id='timeago' title='"+obj[i].date+"' class='date_time_block'></span></p></tr>");
+			$("#jokes_div").append("<tr><td><a href='#'><h5>"+obj[i].title+"</h5></a>"+(obj[i].desc).substring(0,100)+"...<p class='help-block' style='font-size: 12px;color: #777;'><span>tags: "+tags.substring(0,tags.length-2)+"</span> &brvbar; <span id='timeago' title='"+obj[i].date+"' class='date_time_block'></span></p></tr>");
 			$(".date_time_block").timeago();
 		}
 		$("img#loader").hide();
