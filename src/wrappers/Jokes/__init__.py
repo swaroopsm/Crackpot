@@ -12,7 +12,7 @@ class Jokes:
 	@staticmethod
 	def view(m,username):
 		jokes_list=[]
-		a=m.db.jokes.find({'username': username})
+		a=m.db.jokes.find({'username': username}).sort("_id", -1)
 		for i in a:
 			del i['_id']
 			jokes_list.append(i)
