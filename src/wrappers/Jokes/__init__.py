@@ -23,6 +23,7 @@ class Jokes():
 		mywall_list=[]
 		a=m.db.jokes.find({'username': { '$in': subscribers }}).sort('_id', -1)
 		for i in a:
+			k=str(i['_id'])
 			del i['_id']
-			mywall_list.append(i)
+			mywall_list.append({"_id": k, "values": i})
 		return mywall_list
