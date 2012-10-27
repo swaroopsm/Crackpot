@@ -27,3 +27,13 @@ class Jokes():
 			del i['_id']
 			mywall_list.append({"_id": k, "values": i})
 		return mywall_list
+		
+	@staticmethod
+	def get_joke(m,oid):
+		d={}
+		a=m.db.jokes.find({"_id": oid})
+		for i in a:
+			del i['_id']
+			d.update(i)
+		return d
+		
