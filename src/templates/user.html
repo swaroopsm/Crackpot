@@ -6,7 +6,7 @@
 		<input id="my_username" type="hidden" value="{{ session['username'] }}" />
 		<div id="dashboard_info"></div>
 	</div>
-		<div class="well span8" style="background-color: #fff;"><h4 style="margin-top: -5px;">Crackers</h4><a class="pull-right" href="/crack" style="margin-top: -30px;">Crack a joke &raquo;</a><hr style="margin-top: 0px;"><center><img id="loader" src="./static/img/loader.gif" /></center><table class="table table-hover" id="crackers_div" style="margin-top: -10px;"></table><div id="complete_joke"></div></div>
+		<div class="well span8" style="background-color: #fff;"><h4 style="margin-top: -5px;">Crackers</h4><center><img id="loader" style="position: absolute;" src="./static/img/loader.gif"/></center><a class="pull-right" href="/crack" style="margin-top: -30px;">Crack a joke &raquo;</a><hr style="margin-top: 0px;"><table class="table table-hover" id="crackers_div" style="margin-top: -10px;"></table><div id="complete_joke"></div></div>
 </div>
 {% include "layouts/footer.html" %}
 <script src="./static/js/timeago.js"></script>
@@ -50,9 +50,9 @@
 	});
 	
 	$(".joke_title").live("click", function(){
+		$("table#crackers_div").hide();
 		$("#loader").show();	
 		var id=$(this).attr("id");
-		$("table#crackers_div").fadeOut(200);
 		$.post("/complete_joke", {oid: id},
 		function(data){
 			var obj=$.parseJSON(data);
@@ -68,13 +68,18 @@
 				}
 				tags=tags+"<a href='./tags/"+href_attr+"'>"+obj.tags[j]+"</a>, ";
 			}
-			$("div#complete_joke").html("<div id='single_joke'><p><strong>"+obj.title+"<small> - <a href='./"+obj.username+"'>"+obj.username+" </a></small><br></strong><small>tags: "+tags.substring(0,tags.length-2)+" <span class='date_time_block'>&brvbar;</span> <span class='date_time_block' title="+obj.date+"></span></small><hr></p><p id='my_desc'>"+obj.desc+"</p></div>").hide();
+			$("div#complete_joke").html("<div id='single_joke'><a class='close' title='Close' id='joke_close' href='#'>&times;</a><p><strong>"+obj.title+"<small> - <a href='./"+obj.username+"'>"+obj.username+" </a></small><br></strong><small>tags: "+tags.substring(0,tags.length-2)+" <span class='date_time_block'>&brvbar;</span> <span class='date_time_block' title="+obj.date+"></span></small><hr></p><p id='my_desc'>"+obj.desc+"</p></div>").hide();
 			$("#single_joke").children().removeAttr("style");
 			$("#my_desc").children().removeAttr("style");
 			$(".date_time_block").timeago();
-			$("div#complete_joke").fadeIn(300);
+			$("div#complete_joke").hide().fadeIn(200);
 		});
 		$("#loader").fadeOut(200);
+	});
+	
+	$("#joke_close").live("click",function(){
+		$("div#complete_joke").hide();
+		$("table#crackers_div").fadeIn(200);
 	});
 </script>
 </body>
