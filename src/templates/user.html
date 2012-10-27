@@ -68,7 +68,7 @@
 				}
 				tags=tags+"<a href='./tags/"+href_attr+"'>"+obj.tags[j]+"</a>, ";
 			}
-			$("div#complete_joke").html("<div id='single_joke'><a class='close' title='Close' id='joke_close' href='#'>&times;</a><p><strong>"+obj.title+"<small> - <a href='./"+obj.username+"'>"+obj.username+" </a></small><br></strong><small>tags: "+tags.substring(0,tags.length-2)+" <span class='date_time_block'>&brvbar;</span> <span class='date_time_block' title="+obj.date+"></span></small><hr></p><p id='my_desc'>"+obj.desc+"</p></div>").hide();
+			$("div#complete_joke").html("<div id='single_joke' style='text-align: justify;'><a class='close' title='Close' id='joke_close' href='#'>&times;</a><p><strong>"+obj.title+"<small> - <a href='./"+obj.username+"'>"+obj.username+" </a></small><br></strong><small>tags: "+tags.substring(0,tags.length-2)+" <span class='date_time_block'>&brvbar;</span> <span class='date_time_block' title="+obj.date+"></span></small><hr></p><p id='my_desc'>"+obj.desc+"</p></div>").hide();
 			$("#single_joke").children().removeAttr("style");
 			$("#my_desc").children().removeAttr("style");
 			$(".date_time_block").timeago();
