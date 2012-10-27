@@ -2,6 +2,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask.ext.pymongo import PyMongo
+from flask_pymongo import ObjectId
 import settings as s, md5
 import json
 import sys
@@ -222,6 +223,14 @@ def subscribed_jokes():
 		return json.dumps(j.my_wall(mongo,d))
 	except KeyError:
 		return json.dumps({"status": "error"})
+
+@app.route("/complete_joke", methods=['POST'])
+def complete_joke():
+	try:
+		if session['loggedin']==True:
+			return json.dumps(j.get_joke(mongo,ObjectId(request.form['oid'])))
+	except KeyError:
+		return json.dumps({"status": "success"})
 
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
