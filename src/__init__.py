@@ -200,7 +200,15 @@ def jokes():
 	try:
 		if session['loggedin']==True:
 			return render_template("my_jokes.html")
-	except:
+	except KeyError:
+		return redirect(url_for('login'))
+
+@app.route("/get_jokes", methods=['POST'])
+def get_jokes():
+	try:
+		if session['loggedin']==True:
+			return json.dumps(j.view(mongo,session['username']))
+	except KeyError:
 		return redirect(url_for('login'))
 
 if __name__=="__main__":
