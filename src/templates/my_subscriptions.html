@@ -6,7 +6,12 @@
 		<input id="my_username" type="hidden" value="{{ session['username'] }}" />
 		<div id="dashboard_info"></div>
 	</div>
-		<div class="well span8" style="background-color: #fff;"><h4 style="margin-top: -5px;">Subscriptions</h4><hr style="margin-top: 0px;"><center><img id="loader" src="./static/img/loader.gif" /></center><div id="followers_div" style="margin-top: -10px;"></div></div>
+		<div class="well span8" style="background-color: #fff;"><h4 style="margin-top: -5px;">Subscriptions</h4>
+		<div class="btn-group pull-right" style="margin-top: -36px;">
+  <button class="btn" title="Home" href="./"><i class="icon-home"></i></a></button>
+  <button class="btn" title="Crack a joke!" href="./crack"><i class="icon-bullhorn"></i></button>
+</div>
+		<hr style="margin-top: 0px;"><center><img id="loader" src="./static/img/loader.gif" /></center><div id="followers_div" style="margin-top: -10px;"></div></div>
 </div>
 {% include "layouts/footer.html" %}
 <script>
