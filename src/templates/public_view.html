@@ -16,47 +16,53 @@
 		<input type="hidden" id="ref_bio" value="{{ get_userinfo('bio') }}">
 		<input type="hidden" id="ref_avatar" value="http://gravatar.com/avatar/{{ get_userinfo('email_hash') }}/?s=50">
 		{% endif %}
-		<div class="span11">
 			<div class="span3">
-				<img src="http://gravatar.com/avatar/{{ info.email_hash }}?s=180" class="thumbnail"/>
+				<div id="dashboard_info"></div>
 			</div>
-			<div class="span6" style="margin-left: -10px;">
-				<h3>{{ info.name }}</h4>
-				<p>{{ info.bio }}</p>
-					<p>
-						{% if info.url %}
-							<small><a href="{{ info.url }}" target="_BLANK">{{ info.url }}</a></small>
-						{% endif %}
-						{% if info.location %}
-							<small> | {{ info.location }}</small>
-						
-						{% endif %}
-					</p>
+				<div class="well span8" style="background-color: #fff;"><h4 style="margin-top: -5px;">Jokes</h4><center><img id="loader" style="position: absolute;" src="./static/img/loader.gif"/></center>
+		{% if session['loggedin'] == True %}
+			<div class="btn-group pull-right" style="margin-top: -36px;">
+				<button class="btn" title="Home" href="./"><i class="icon-home"></i></a></button>
+				<button class="btn" title="Crack a joke!" href="./crack"><i class="icon-bullhorn"></i></button>
 			</div>
-			<div class="span1" style="float: right;">
-				{% if info.username != session['username'] %}
-					<div id="sub_unsub_div"><img src="./static/img/loader.gif" /></div>
-					
-				{% endif %}
+		{% endif %}
+		<hr style="margin-top: 0px;">
+		<table class="table table-hover" id="crackers_div" style="margin-top: -10px;"></table>
+		<div id="complete_joke"></div></div>
+</div>
 			</div>
-		</div>
 	{% endif %}
-	<br>
-	<hr class="span11">
 </div>
 {% include "layouts/footer.html" %}
 <script>
+		
+		$.post("/public_info",{username: document.URL.split("/")[3]},
+		function(data){
+			var obj=$.parseJSON(data)
+			var username, follower, following;
+		if(obj.follower)
+			follower=obj.follower.length;
+		else
+			follower=0
+		if(obj.following)
+			following=obj.following.length;
+		else
+			following=0;
+			console.log(obj);
+			$("#dashboard_info").html("<center><img style='width: 180px; height: 180px;'src='http://gravatar.com/avatar/"+obj.email_hash+"?size=180' alt='"+obj.name+"' class='thumbnail'></img><br>{% if info.username != session['username'] %}<div id='sub_unsub_div' ></div>{% endif %}<hr><h5><a href='/profile'>"+obj.name+"</a> (<a href='/"+obj.username+"'>@"+obj.username+"</a>)</h5><p><a href='/subscribers'>Subscribers: "+follower+"</a></p><p><a href='/subscriptions'>Subscriptions: "+following+"</a></p><p><a href='/jokes'>Jokes: "+obj.jokes+"</a></p></center>").show();
+		});		
+		
 		$.post("/get_followers", function(data){
 			var obj=$.parseJSON(data);
 			var flag=0;
 			if(obj.success=="error"){
-				$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').hide().fadeIn(500);
+				$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').fadeIn(500);
 			}
 			else{
 				if(obj.following){
 					for(var i=0;i<obj.following.length;i++){
 					if($("#my_username").val() == obj.following[i].user){
-						$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-danger" data-value="unsubscribe">Unsubscribe</button></a>').hide().fadeIn(500);
+						$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-danger" data-value="unsubscribe">Unsubscribe</button></a>').fadeIn(500);
 						flag=1;
 						return;
 					}
@@ -66,20 +72,15 @@
 				}	
 				}
 				else{
-					$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').hide().fadeIn(500);
+					$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').fadeIn(500);
 				}
 				
 			}
 			if(flag==0){
-				$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').hide().fadeIn(500);
+				$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').fadeIn(500);
 			}
 		});		
 		
-		/*$.post("/public_info",{username: document.URL.split("/")[3]},
-		function(data){
-			var obj=$.parseJSON(data)
-			console.log(obj);
-		});*/
 		
 </script>
 </body>
