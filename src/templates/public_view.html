@@ -41,7 +41,7 @@
 {% include "layouts/footer.html" %}
 <script>
 		
-		$.post("/public_info",{username: document.URL.split("/")[3]},
+		$.post("/public_info",{username: document.URL.split("/")[3].replace(/#/,"")},
 		function(data){
 			var obj=$.parseJSON(data)
 			var username, follower, following;
