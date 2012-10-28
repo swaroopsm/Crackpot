@@ -129,7 +129,7 @@ def public_profile(username):
 	try:
 		a=u.view(mongo,username)	
 		a.update({'email_hash': md5.new(a['email']).hexdigest()})
-		return render_template("public_view.html", title="Cracpot | "+a['name'], info=a)
+		return render_template("public_view.html", title="Cracpot | "+a['name'])
 	except:
 		return render_template("public_view.html", title="Cracpot | Not Found")
 
