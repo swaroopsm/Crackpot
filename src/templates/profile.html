@@ -16,7 +16,11 @@
 			<center>{% include "layouts/messages.html" %}</center>
 	<form class="form" id="profile_update_form">
 	<div class="control-group" style="float: right; position: relative;margin-right: 20px;">
-  </div>
+		<label class="control-label" for="inputBgcolor">Background Color: </label>
+    <div class="controls">
+      <input type="text" id="inputBgcolor" value="{{ get_userinfo('bg_color') }}" />
+    </div>
+   </div>
 	<div class="control-group">
     <label class="control-label" for="inputEmail">Name</label>
     <div class="controls">
