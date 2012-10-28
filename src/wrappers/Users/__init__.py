@@ -34,6 +34,9 @@ class Users:
 	@staticmethod
 	def view(m,username):
 		a=m.db.users.find({'username': username},{'password': 0})
+		
+		### ToDo: Handle follower/following count issue
+		
 		c=m.db.jokes.find({'username': username}).count()
 		info={}
 		for i in a:
