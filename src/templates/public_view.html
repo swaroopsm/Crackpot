@@ -19,7 +19,7 @@
 			<div class="span3">
 				<div id="dashboard_info"></div>
 			</div>
-				<div class="well span8" style="background-color: #fff;min-height: 133px;"><h4 style="margin-top: -5px;" id="about_title"></h4><center><img id="loader" style="position: absolute;" src="./static/img/loader.gif"/></center>
+				<div class="well span8" style="background-color: #fff;min-height: 133px;"><h4 style="margin-top: -5px;" id="about_title"></h4>
 		{% if session['loggedin'] == True %}
 			<div class="btn-group pull-right" style="margin-top: -36px;">
 				<button class="btn" title="Home" href="./"><i class="icon-home"></i></a></button>
@@ -27,11 +27,14 @@
 			</div>
 		{% endif %}
 		<hr style="margin-top: 0px;">
-		<h4 style="margin-top: -5px;" id="about_title"></h4>
 		<div id="about_info"></div>
+</div>
+	<div class="well span8" style="background-color: #fff;min-height: 133px;">
+		<h4 style="margin-top: -5px;" id="about_title">Jokes</h4><center><img id="loader" style="position: absolute;" src="./static/img/loader.gif"/></center>
+		<hr style="margin-top: 0px;">
 		<table class="table table-hover" id="crackers_div" style="margin-top: -10px;"></table>
 		<div id="complete_joke"></div></div>
-</div>
+	</div>
 			</div>
 	{% endif %}
 </div>
