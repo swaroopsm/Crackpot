@@ -32,7 +32,7 @@ class Users:
 	
 	@staticmethod
 	def view(m,username):
-		a=m.db.users.find({'username': username})
+		a=m.db.users.find({'username': username},{'password': 0})
 		c=m.db.jokes.find({'username': username}).count()
 		info={}
 		for i in a:
