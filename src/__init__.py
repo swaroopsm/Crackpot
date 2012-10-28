@@ -105,7 +105,8 @@ def update_profile():
 	bio=request.form['bio']
 	url=request.form['url']
 	location=request.form['location']
-	return u.update(mongo,session['username'],name,email,bio,url,location)
+	color=request.form['color']
+	return u.update(mongo,session['username'],name,email,bio,url,location,color)
 
 @app.route("/subscribe", methods=['POST'])
 def subscribe():
