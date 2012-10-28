@@ -11,10 +11,11 @@
 		<input type="hidden" id="my_bio" value="{{ info.bio }}">
 		<input type="hidden" id="my_name" value="{{ info.name }}">
 		<input type="hidden" id="my_avatar" value="http://gravatar.com/avatar/{{ info.email_hash }}/?s=50">
-		
+		{% if session['loggedin'] == True %}
 		<input type="hidden" id="ref_name" value="{{ get_userinfo('name') }}">
 		<input type="hidden" id="ref_bio" value="{{ get_userinfo('bio') }}">
 		<input type="hidden" id="ref_avatar" value="http://gravatar.com/avatar/{{ get_userinfo('email_hash') }}/?s=50">
+		{% endif %}
 		<div class="span11">
 			<div class="span3">
 				<img src="http://gravatar.com/avatar/{{ info.email_hash }}?s=180" class="thumbnail"/>
@@ -73,6 +74,13 @@
 				$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').hide().fadeIn(500);
 			}
 		});		
+		
+		/*$.post("/public_info",{username: document.URL.split("/")[3]},
+		function(data){
+			var obj=$.parseJSON(data)
+			console.log(obj);
+		});*/
+		
 </script>
 </body>
 </html>
