@@ -2081,7 +2081,7 @@ $(document).ready(function(){
 		}
 		else{
 			$("#loader").show();
-			$.post("/update_profile", {name: name, email: email, bio: $("#inputBio").val(), url: $("#inputWebsiteURL").val(), location: $("#inputLocation").val()},
+			$.post("/update_profile", {name: name, email: email, bio: $("#inputBio").val(), url: $("#inputWebsiteURL").val(), location: $("#inputLocation").val(), color: $("#inputBgcolor").val()},
 			function(data){
 				var obj=$.parseJSON(data);
 				if(obj.status == "success")
