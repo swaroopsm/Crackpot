@@ -19,7 +19,7 @@
 			<div class="span3">
 				<div id="dashboard_info"></div>
 			</div>
-				<div class="well span8" style="background-color: #fff;"><h4 style="margin-top: -5px;">Jokes</h4><center><img id="loader" style="position: absolute;" src="./static/img/loader.gif"/></center>
+				<div class="well span8" style="background-color: #fff;min-height: 133px;"><h4 style="margin-top: -5px;" id="about_title"></h4><center><img id="loader" style="position: absolute;" src="./static/img/loader.gif"/></center>
 		{% if session['loggedin'] == True %}
 			<div class="btn-group pull-right" style="margin-top: -36px;">
 				<button class="btn" title="Home" href="./"><i class="icon-home"></i></a></button>
@@ -27,6 +27,8 @@
 			</div>
 		{% endif %}
 		<hr style="margin-top: 0px;">
+		<h4 style="margin-top: -5px;" id="about_title"></h4>
+		<div id="about_info"></div>
 		<table class="table table-hover" id="crackers_div" style="margin-top: -10px;"></table>
 		<div id="complete_joke"></div></div>
 </div>
@@ -48,7 +50,9 @@
 			following=obj.following.length;
 		else
 			following=0;
-			$("#dashboard_info").html("<center><img style='width: 180px; height: 180px;'src='"+obj.avatar+"?size=180' alt='"+obj.name+"' class='thumbnail'></img><br>{% if info.username != session['username'] %}<div id='sub_unsub_div' ></div>{% endif %}<hr><h5><a href='/profile'>"+obj.name+"</a> (<a href='/"+obj.username+"'>@"+obj.username+"</a>)</h5><p><a href='/subscribers'>Subscribers: "+follower+"</a></p><p><a href='/subscriptions'>Subscriptions: "+following+"</a></p><p><a href='/jokes'>Jokes: "+obj.jokes+"</a></p></center>").show();
+			$("#dashboard_info").html("<center><img style='width: 180px; height: 180px;' src='"+obj.avatar+"?size=180' alt='"+obj.name+"' class='thumbnail'></img><br>{% if info.username != session['username'] %}<div id='sub_unsub_div' ></div>{% endif %}<hr><h5>"+obj.name+" (<a href='/"+obj.username+"'>@"+obj.username+"</a>)</h5><p><a href='/subscribers'>Subscribers: "+follower+"</a></p><p><a href='/subscriptions'>Subscriptions: "+following+"</a></p><p><a href='/jokes'>Jokes: "+obj.jokes+"</a></p></center>").show();
+			$("#about_title").html(obj.name).show();
+			$("#about_info").html("<p><i style='color: #777;'>"+obj.bio+"</i></p><p><small><a href='"+obj.url+"' target='_BLANK'>"+obj.url+"</a><span class='date_time_block'> &brvbar; "+obj.location+"</span></small></p>")
 		});		
 		
 		$.post("/get_followers", function(data){
