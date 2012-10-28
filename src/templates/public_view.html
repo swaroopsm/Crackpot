@@ -30,15 +30,15 @@
 		<div id="about_info"></div>
 </div>
 	<div class="well span8" style="background-color: #fff;min-height: 133px;">
-		<h4 style="margin-top: -5px;" id="about_title">Jokes</h4><center><img id="loader" style="position: absolute;" src="./static/img/loader.gif"/></center>
-		<hr style="margin-top: 0px;">
-		<table class="table table-hover" id="crackers_div" style="margin-top: -10px;"></table>
+		<h4 style="margin-top: -5px;padding-bottom: 5px;" id="about_title">Jokes</h4><center><img id="loader" style="position: absolute;" src="./static/img/loader.gif"/></center>
+		<table class="table table-hover" id="jokes_div" style="margin-top: -10px;"></table>
 		<div id="complete_joke"></div></div>
 	</div>
 			</div>
 	{% endif %}
 </div>
 {% include "layouts/footer.html" %}
+<script src="./static/js/timeago.js"></script>
 <script>
 		
 		$.post("/public_info",{username: document.URL.split("/")[3].replace(/#/,"")},
@@ -55,7 +55,25 @@
 			following=0;
 			$("#dashboard_info").html("<center><img style='width: 180px; height: 180px;' src='"+obj.avatar+"?size=180' alt='"+obj.name+"' class='thumbnail'></img><br>{% if info.username != session['username'] %}<div id='sub_unsub_div' ></div>{% endif %}<hr><h5>"+obj.name+" (<a href='/"+obj.username+"'>@"+obj.username+"</a>)</h5><p><a href='/subscribers'>Subscribers: "+follower+"</a></p><p><a href='/subscriptions'>Subscriptions: "+following+"</a></p><p><a href='/jokes'>Jokes: "+obj.jokes+"</a></p></center>").show();
 			$("#about_title").html(obj.name).show();
-			$("#about_info").html("<p><i style='color: #777;'>"+obj.bio+"</i></p><p><small><a href='"+obj.url+"' target='_BLANK'>"+obj.url+"</a><span class='date_time_block'> &brvbar; "+obj.location+"</span></small></p>")
+			$("#about_info").html("<p><i style='color: #777;'>"+obj.bio+"</i></p><p><small><a href='"+obj.url+"' target='_BLANK'>"+obj.url+"</a><span class='date_time_block'> &brvbar; "+obj.location+"</span></small></p>");
+			$.post("/public_jokes", {username: obj.username},
+		function(data2){
+			var obj2=$.parseJSON(data2);
+			console.log(obj2);
+			$("#jokes_div").html("");
+		for(var i in obj2){
+			if(obj2[i].tags){
+				var tags="";
+				for(var j in obj2[i].tags){
+					tags=tags+"<a href='#'>"+obj2[i].tags[j]+"</a>, ";
+				}
+			}
+			$("#jokes_div").append("<tr><td><a href='#'><h5>"+obj2[i].title+"</h5></a>"+(obj2[i].desc).replace(/(<([^>]+)>)/ig," ").substring(0,100)+"...<p class='help-block' style='font-size: 12px;color: #777;'><span>tags: "+tags.substring(0,tags.length-2)+"</span> &brvbar; <span id='timeago' title='"+obj2[i].date+"' class='date_time_block'></span></p></tr>");
+			$(".date_time_block").timeago();
+		}
+		$("img#loader").hide();
+		$("#jokes_div").append("<tr></tr>").hide().fadeIn(500);
+		});
 		});		
 		
 		$.post("/get_followers", function(data){
