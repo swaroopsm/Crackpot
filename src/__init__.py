@@ -233,6 +233,10 @@ def complete_joke():
 def public_info():
 	return json.dumps(u.view(mongo,request.form['username']))
 
+@app.route("/public_jokes", methods=['POST'])
+def public_jokes():
+	return json.dumps(j.view(mongo,request.form['username']))
+
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
 	app.jinja_env.globals.update(get_userinfo=get_userinfo)
