@@ -7,11 +7,11 @@
 <body>
 <div class="container">
 	{% if info %}
+		{% if session['loggedin'] == True %}
 		<input type="hidden" id="my_username" value="{{ info.username }}">
 		<input type="hidden" id="my_bio" value="{{ info.bio }}">
 		<input type="hidden" id="my_name" value="{{ info.name }}">
 		<input type="hidden" id="my_avatar" value="http://gravatar.com/avatar/{{ info.email_hash }}/?s=50">
-		{% if session['loggedin'] == True %}
 		<input type="hidden" id="ref_name" value="{{ get_userinfo('name') }}">
 		<input type="hidden" id="ref_bio" value="{{ get_userinfo('bio') }}">
 		<input type="hidden" id="ref_avatar" value="http://gravatar.com/avatar/{{ get_userinfo('email_hash') }}/?s=50">
@@ -48,8 +48,7 @@
 			following=obj.following.length;
 		else
 			following=0;
-			console.log(obj);
-			$("#dashboard_info").html("<center><img style='width: 180px; height: 180px;'src='http://gravatar.com/avatar/"+obj.email_hash+"?size=180' alt='"+obj.name+"' class='thumbnail'></img><br>{% if info.username != session['username'] %}<div id='sub_unsub_div' ></div>{% endif %}<hr><h5><a href='/profile'>"+obj.name+"</a> (<a href='/"+obj.username+"'>@"+obj.username+"</a>)</h5><p><a href='/subscribers'>Subscribers: "+follower+"</a></p><p><a href='/subscriptions'>Subscriptions: "+following+"</a></p><p><a href='/jokes'>Jokes: "+obj.jokes+"</a></p></center>").show();
+			$("#dashboard_info").html("<center><img style='width: 180px; height: 180px;'src='"+obj.avatar+"?size=180' alt='"+obj.name+"' class='thumbnail'></img><br>{% if info.username != session['username'] %}<div id='sub_unsub_div' ></div>{% endif %}<hr><h5><a href='/profile'>"+obj.name+"</a> (<a href='/"+obj.username+"'>@"+obj.username+"</a>)</h5><p><a href='/subscribers'>Subscribers: "+follower+"</a></p><p><a href='/subscriptions'>Subscriptions: "+following+"</a></p><p><a href='/jokes'>Jokes: "+obj.jokes+"</a></p></center>").show();
 		});		
 		
 		$.post("/get_followers", function(data){
