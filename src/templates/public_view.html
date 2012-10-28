@@ -31,7 +31,8 @@
 </div>
 	<div class="well span8" style="background-color: #fff;min-height: 133px;">
 		<h4 style="margin-top: -5px;padding-bottom: 5px;" id="about_title">Jokes</h4><center><img id="loader" style="position: absolute;" src="./static/img/loader.gif"/></center>
-		<table class="table table-hover" id="jokes_div" style="margin-top: -10px;"></table>
+		<hr style="margin-top: 0px;">
+		<table class="table table-hover" id="crackers_div" style="margin-top: -10px;"></table>
 		<div id="complete_joke"></div></div>
 	</div>
 			</div>
@@ -59,20 +60,24 @@
 			$.post("/public_jokes", {username: obj.username},
 		function(data2){
 			var obj2=$.parseJSON(data2);
-			console.log(obj2);
-			$("#jokes_div").html("");
+			$("#crackers_div").html("");
 		for(var i in obj2){
-			if(obj2[i].tags){
-				var tags="";
-				for(var j in obj2[i].tags){
-					tags=tags+"<a href='#'>"+obj2[i].tags[j]+"</a>, ";
+			var tags="";
+			var href_attr;
+			for(var j in obj2[i].values.tags){
+				if(j==0){
+					href_attr=obj2[i].values.tags[j].replace(/ /g,"+");
 				}
+				else{
+					href_attr=obj2[i].values.tags[j].replace(/ /g,"+");
+					href_attr=href_attr.substring(1,href_attr.length)
+				}
+				tags=tags+"<a href='./tags/"+href_attr+"'>"+obj2[i].values.tags[j]+"</a>, ";
 			}
-			$("#jokes_div").append("<tr><td><a href='#'><h5>"+obj2[i].title+"</h5></a>"+(obj2[i].desc).replace(/(<([^>]+)>)/ig," ").substring(0,100)+"...<p class='help-block' style='font-size: 12px;color: #777;'><span>tags: "+tags.substring(0,tags.length-2)+"</span> &brvbar; <span id='timeago' title='"+obj2[i].date+"' class='date_time_block'></span></p></tr>");
-			$(".date_time_block").timeago();
+			$("#crackers_div").append("<tr><td style='border-top: none; border-bottom: 1px solid #eee;'><a href='/"+obj2[i].values.username+"'><img style='width: 50px;height: 50px;display: inline-block;' src='"+obj2[i].values.avatar+"' class='thumbnail' style='display: inline-block;'></img></a>&nbsp;&nbsp;<a href='#' class='joke_title' id='"+obj2[i]._id+"' style='margin-top: 2px;position: absolute'>"+obj2[i].values.title+"</a><br><span class='pull-right' style='padding-right: 125px;width: 430px;padding-left: 70px;margin-top: -30px;color: #666; font-style: italic;'>"+obj2[i].values.desc.replace(/(<([^>]+)>)/ig," ").substring(0,100)+"...</span><div class='help-block' style='font-size: 12px;color: #777;margin-left: 70px;'><span>tags: "+tags.substring(0,tags.length-2)+"</span> &brvbar; <span id='timeago' title='"+obj2[i].values.date+"' class='date_time_block'></span></div></p></tr>")
 		}
 		$("img#loader").hide();
-		$("#jokes_div").append("<tr></tr>").hide().fadeIn(500);
+		$("#crackers_div").append("<tr></tr>").hide().fadeIn(500);
 		});
 		});		
 		
