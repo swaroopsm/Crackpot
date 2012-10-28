@@ -21,7 +21,7 @@ class Jokes():
 	@staticmethod
 	def my_wall(m,subscribers):
 		mywall_list=[]
-		a=m.db.jokes.find({'username': { '$in': subscribers }}).sort('_id', -1)
+		a=m.db.jokes.find({'username': { '$in': subscribers }}).sort('_id', -1).limit(8)
 		for i in a:
 			k=str(i['_id'])
 			del i['_id']
@@ -41,6 +41,16 @@ class Jokes():
 	def view_with_id(m,username):
 		jokes_list=[]
 		a=m.db.jokes.find({'username': username}).sort("_id", -1)
+		for i in a:
+			k=str(i['_id'])
+			del i['_id']
+			jokes_list.append({"_id": k, "values": i})
+		return jokes_list
+		
+	@staticmethod
+	def load_more_jokes(m,subscribers,oid):
+		jokes_list=[]
+		a=m.db.jokes.find({ '$and': [{'username': { '$in': subscribers }},{"_id": {'$lt': oid}} ] } ).sort('_id', -1).limit(4)
 		for i in a:
 			k=str(i['_id'])
 			del i['_id']
