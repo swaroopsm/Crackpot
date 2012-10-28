@@ -56,38 +56,6 @@
 		$("#loader").fadeOut(200);
 	});
 	
-	$(".joke_title").live("click", function(){
-		$("table#crackers_div").hide();
-		$("#loader").show();	
-		var id=$(this).attr("id");
-		$.post("/complete_joke", {oid: id},
-		function(data){
-			var obj=$.parseJSON(data);
-			var tags="";
-			var href_attr;
-			for(var j in obj.tags){
-				if(j==0){
-					href_attr=obj.tags[j].replace(/ /g,"+");
-				}
-				else{
-					href_attr=obj.tags[j].replace(/ /g,"+");
-					href_attr=href_attr.substring(1,href_attr.length)
-				}
-				tags=tags+"<a href='./tags/"+href_attr+"'>"+obj.tags[j]+"</a>, ";
-			}
-			$("div#complete_joke").html("<div id='single_joke' style='text-align: justify;'><a class='close' title='Close' id='joke_close' href='#'>&times;</a><p><strong>"+obj.title+"<small> - <a href='./"+obj.username+"'>"+obj.username+" </a></small><br></strong><small>tags: "+tags.substring(0,tags.length-2)+" <span class='date_time_block'>&brvbar;</span> <span class='date_time_block' title="+obj.date+"></span></small><hr></p><p id='my_desc'>"+obj.desc+"</p></div>").hide();
-			$("#single_joke").children().removeAttr("style");
-			$("#my_desc").children().removeAttr("style");
-			$(".date_time_block").timeago();
-			$("div#complete_joke").hide().fadeIn(200);
-		});
-		$("#loader").fadeOut(200);
-	});
-	
-	$("#joke_close").live("click",function(){
-		$("div#complete_joke").hide();
-		$("table#crackers_div").fadeIn(200);
-	});
 </script>
 </body>
 </html>
