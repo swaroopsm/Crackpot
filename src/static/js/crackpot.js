@@ -2085,9 +2085,9 @@ $(document).ready(function(){
 			function(data){
 				var obj=$.parseJSON(data);
 				if(obj.status == "success")
-					$("#js-messages").html("<span class='alert alert-success span11'><button type='button'class='close' data-dismiss='alert'>&times;</button>"+obj.message+"</span>").hide().fadeIn(500);
+					$("#js-messages").html("<span class='alert alert-success span6'><button type='button'class='close' data-dismiss='alert'>&times;</button>"+obj.message+"</span>").hide().fadeIn(500);
 				else
-					$("#js-messages").html("<span class='alert alert-danger span11'><button type='button'class='close' data-dismiss='alert'>&times;</button>"+obj.message+"</span>").hide().fadeIn(500)
+					$("#js-messages").html("<span class='alert alert-danger span6'><button type='button'class='close' data-dismiss='alert'>&times;</button>"+obj.message+"</span>").hide().fadeIn(500)
 			});
 			$("#loader").fadeOut(500);
 		}
