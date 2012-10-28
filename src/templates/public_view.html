@@ -44,7 +44,8 @@
 		
 		$.post("/public_info",{username: document.URL.split("/")[3].replace(/#/,"")},
 		function(data){
-			var obj=$.parseJSON(data)
+			var obj=$.parseJSON(data);
+			$("body").css("background-color",obj.bg_color);
 			var username, follower, following;
 		if(obj.follower)
 			follower=obj.follower.length;
