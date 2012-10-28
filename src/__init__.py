@@ -126,12 +126,9 @@ def subscribe():
 
 @app.route("/<username>")
 def public_profile(username):
-	try:
 		a=u.view(mongo,username)	
 		a.update({'email_hash': md5.new(a['email']).hexdigest()})
-		return render_template("public_view.html", title="Cracpot | "+a['name'])
-	except:
-		return render_template("public_view.html", title="Cracpot | Not Found")
+		return render_template("public_view.html", title="Crackpot | "+a['name'], info=a)
 
 @app.route("/get_followers",methods=['POST'])
 def get_followers():
