@@ -232,6 +232,10 @@ def complete_joke():
 	except KeyError:
 		return json.dumps({"status": "success"})
 
+@app.route("/public_info", methods=['POST'])
+def public_info():
+	return json.dumps(u.view(mongo,request.form['username']))
+
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
 	app.jinja_env.globals.update(get_userinfo=get_userinfo)
