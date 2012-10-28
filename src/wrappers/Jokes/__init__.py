@@ -37,3 +37,12 @@ class Jokes():
 			d.update(i)
 		return d
 		
+	@staticmethod
+	def view_with_id(m,username):
+		jokes_list=[]
+		a=m.db.jokes.find({'username': username}).sort("_id", -1)
+		for i in a:
+			k=str(i['_id'])
+			del i['_id']
+			jokes_list.append({"_id": k, "values": i})
+		return jokes_list
