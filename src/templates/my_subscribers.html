@@ -1,7 +1,7 @@
 {% include "layouts/header.html" %}
 {% include "layouts/user_navbar.html" %}
 <body>
-<div class="container">
+<div class="container user_dash">
 	<div class="span3">
 		<input id="my_username" type="hidden" value="{{ session['username'] }}" />
 		<div id="dashboard_info"></div>
@@ -17,6 +17,7 @@
 <script>
 	$.post("/my_info", function(data){
 		var obj=$.parseJSON(data);
+		$("body").css("background-color",obj.bg_color);
 		var username, follower, following;
 		if(obj.follower)
 			follower=obj.follower.length;
