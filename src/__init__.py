@@ -238,6 +238,14 @@ def public_info():
 def public_jokes():
 	return json.dumps(j.view_with_id(mongo,request.form['username']))
 
+@app.route("/more_jokes", methods=['POST'])
+def more_jokes():
+	a=u.user_followers(mongo,session['username'])
+	d=[]
+	for i in a['following']:
+		d.append(i['user'])
+	return json.dumps(j.load_more_jokes(mongo,d,ObjectId(request.form['oid'])))
+
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
 	app.jinja_env.globals.update(get_userinfo=get_userinfo)
