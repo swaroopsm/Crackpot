@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import sha, json
+import md5, sha, json
 import settings as s
 
 class Users:
@@ -17,7 +17,8 @@ class Users:
 			return json.dumps({'status': 'error', 'message': 'Username already taken..'})
 		else:
 			try:
-				st=str(m.db.users.save({'name':name,'email':email,'password':password,'username':username}))
+				avatar="http://gravatar.com/avatar/"+md5.new(email).hexdigest()
+				st=str(m.db.users.save({'name':name,'email':email,'password':password,'username':username, 'avatar': avatar}))
 				return json.dumps({'_id':st,'status': 'success', 'message':'Successfully registered. Please wait...'})
 			except:
 				return json.dumps({'status': 'error', 'message': 'There was an error. Please try again later...'})
