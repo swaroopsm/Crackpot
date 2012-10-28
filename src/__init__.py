@@ -235,7 +235,7 @@ def public_info():
 
 @app.route("/public_jokes", methods=['POST'])
 def public_jokes():
-	return json.dumps(j.view(mongo,request.form['username']))
+	return json.dumps(j.view_with_id(mongo,request.form['username']))
 
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
