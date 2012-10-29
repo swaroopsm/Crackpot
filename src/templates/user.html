@@ -51,7 +51,7 @@
 				}
 				tags=tags+"<a href='./tags/"+href_attr+"'>"+obj[i].values.tags[j]+"</a>, ";
 			}
-			$("#crackers_div").append("<tr><td style='border-top: none; border-bottom: 1px solid #eee;'><a href='/"+obj[i].values.username+"'><img style='width: 50px;height: 50px;display: inline-block;' src='"+obj[i].values.avatar+"' class='thumbnail' style='display: inline-block;'></img></a>&nbsp;&nbsp;<a href='#' class='joke_title' id='"+obj[i]._id+"' style='margin-top: 2px;position: absolute'>"+obj[i].values.title+"</a><br><span class='pull-right' style='padding-right: 125px;width: 430px;padding-left: 70px;margin-top: -30px;color: #666; font-style: italic;'>"+obj[i].values.desc.replace(/(<([^>]+)>)/ig," ").substring(0,100)+"...</span><div class='help-block' style='font-size: 12px;color: #777;margin-left: 70px;'><span>tags: "+tags.substring(0,tags.length-2)+"</span> &brvbar; <span id='timeago' title='"+obj[i].values.date+"' class='date_time_block'></span></div></p></tr>")
+			$("#crackers_div").append("<tr><td style='border-top: none; border-bottom: 1px solid #eee;'><a href='/"+obj[i].values.username+"'><img style='width: 50px;height: 50px;display: inline-block;' src='"+obj[i].values.avatar+"' class='thumbnail' style='display: inline-block;'></img></a>&nbsp;&nbsp;<a href='#' class='joke_title' id='"+obj[i]._id+"' style='margin-top: 2px;position: absolute'>"+obj[i].values.title+"</a><span class='pull-right'><span id='timeago' title='"+obj[i].values.date+"' class='date_time_block'></span></span><br><span class='pull-right' style='padding-right: 125px;width: 430px;padding-left: 70px;margin-top: -30px;color: #666; font-style: italic;'>"+obj[i].values.desc.replace(/(<([^>]+)>)/ig," ").substring(0,100)+"...</span><div class='help-block' style='font-size: 12px;color: #777;margin-left: 70px;'><span>tags: "+tags.substring(0,tags.length-2)+"</span></div></p></tr>")
 		}
 		my_id=obj[obj.length-1]._id;
 		$(".date_time_block").timeago();
@@ -61,6 +61,7 @@
 	
 	var load_flag=true;
 	$(window).scroll(function () {
+		
     if ($(window).scrollTop() >= $(document).height() - $(window).height() && load_flag) {
         load_flag = false;
         // other stuff
