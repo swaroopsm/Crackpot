@@ -12,7 +12,7 @@
   <button class="btn" title="Crack a joke!" href="./crack"><i class="icon-bullhorn"></i></button>
 </div>
 		<hr style="margin-top: 0px;">
-		<table class="table table-hover" id="crackers_div" style="margin-top: -10px;"></table>
+		<table class="table table-hover" id="crackers_div" style="margin-top: -10px;"></table><center><img id="loader2" style="position: absolute;display: none;" src="./static/img/loader.gif"/></center><center><span class="alert alert-info span7" style="display: none;" id="no_results">No more jokes to load...</span></center>
 		<div id="complete_joke"></div></div>
 </div>
 {% include "layouts/footer.html" %}
@@ -63,6 +63,7 @@
 	$(window).scroll(function () {
 		
     if ($(window).scrollTop() >= $(document).height() - $(window).height() && load_flag) {
+    		$("#loader2").show();
         load_flag = false;
         // other stuff
         $.post("/more_jokes", {oid: my_id},
@@ -83,10 +84,17 @@
 			}
 			$("#crackers_div").append("<tr><td style='border-top: none; border-bottom: 1px solid #eee;'><a href='/"+obj[i].values.username+"'><img style='width: 50px;height: 50px;display: inline-block;' src='"+obj[i].values.avatar+"' class='thumbnail' style='display: inline-block;'></img></a>&nbsp;&nbsp;<a href='#' class='joke_title' id='"+obj[i]._id+"' style='margin-top: 2px;position: absolute'>"+obj[i].values.title+"</a><br><span class='pull-right' style='padding-right: 125px;width: 430px;padding-left: 70px;margin-top: -30px;color: #666; font-style: italic;'>"+obj[i].values.desc.replace(/(<([^>]+)>)/ig," ").substring(0,100)+"...</span><div class='help-block' style='font-size: 12px;color: #777;margin-left: 70px;'><span>tags: "+tags.substring(0,tags.length-2)+"</span> &brvbar; <span id='timeago' title='"+obj[i].values.date+"' class='date_time_block'></span></div></p></tr>");
 		}
-		my_id=obj[obj.length-1]._id;
-    	});
-    	load_flag=true;
+			try{
+				my_id=obj[obj.length-1]._id;
+				load_flag=true;
+			}
+			catch(e){
+				$("#no_results").hide().fadeIn(400);
+				load_flag=false;
+			}
+    });
     }
+    $("#loader2").fadeOut(200);
 });
 </script>
 </body>
