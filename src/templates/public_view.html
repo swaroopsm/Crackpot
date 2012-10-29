@@ -46,7 +46,7 @@
 		function(data){
 			var obj=$.parseJSON(data);
 			$("body").css("background-color",obj.bg_color);
-			var username, follower, following;
+			var username, follower, following, location="", url="",bio="";
 		if(obj.follower)
 			follower=obj.follower.length;
 		else
@@ -57,7 +57,13 @@
 			following=0;
 			$("#dashboard_info").html("<center><img style='width: 180px; height: 180px;' src='"+obj.avatar+"?size=180' alt='"+obj.name+"' class='thumbnail'></img><br>{% if info.username != session['username'] %}<div id='sub_unsub_div' ></div>{% endif %}<hr><h5>"+obj.name+" (<a href='/"+obj.username+"'>@"+obj.username+"</a>)</h5><p><a href='/subscribers'>Subscribers: "+follower+"</a></p><p><a href='/subscriptions'>Subscriptions: "+following+"</a></p><p><a href='/jokes'>Jokes: "+obj.jokes+"</a></p></center>").show();
 			$("#about_title").html(obj.name).show();
-			$("#about_info").html("<p><i style='color: #777;'>"+obj.bio+"</i></p><p><small><a href='"+obj.url+"' target='_BLANK'>"+obj.url+"</a><span class='date_time_block'> &brvbar; "+obj.location+"</span></small></p>");
+			if(obj.url)
+				url=obj.url;
+			if(obj.bio)
+				bio=obj.bio;
+			if(obj.location)
+				location=obj.location;
+			$("#about_info").html("<p><i style='color: #777;'>"+bio+"</i></p><p><small><a href='"+url+"' target='_BLANK'>"+url+"</a><span class='date_time_block'> &brvbar; "+location+"</span></small></p>");
 			$.post("/public_jokes", {username: obj.username},
 		function(data2){
 			var obj2=$.parseJSON(data2);
