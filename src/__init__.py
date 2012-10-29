@@ -207,7 +207,7 @@ def jokes():
 def get_jokes():
 	try:
 		if session['loggedin']==True:
-			return json.dumps(j.view(mongo,session['username']))
+			return json.dumps(j.view_with_id(mongo,session['username']))
 	except KeyError:
 		return redirect(url_for('login'))
 
