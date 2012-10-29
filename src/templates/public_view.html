@@ -68,6 +68,7 @@
 		function(data2){
 			var obj2=$.parseJSON(data2);
 			$("#crackers_div").html("");
+			console.log(obj2)
 		for(var i in obj2){
 			var tags="";
 			var href_attr;
@@ -81,7 +82,8 @@
 				}
 				tags=tags+"<a href='./tags/"+href_attr+"'>"+obj2[i].values.tags[j]+"</a>, ";
 			}
-			$("#crackers_div").append("<tr><td style='border-top: none; border-bottom: 1px solid #eee;'><a href='/"+obj2[i].values.username+"'><img style='width: 50px;height: 50px;display: inline-block;' src='"+obj2[i].values.avatar+"' class='thumbnail' style='display: inline-block;'></img></a>&nbsp;&nbsp;<a href='#' class='joke_title' id='"+obj2[i]._id+"' style='margin-top: 2px;position: absolute'>"+obj2[i].values.title+"</a><br><span class='pull-right' style='padding-right: 125px;width: 430px;padding-left: 70px;margin-top: -30px;color: #666; font-style: italic;'>"+obj2[i].values.desc.replace(/(<([^>]+)>)/ig," ").substring(0,100)+"...</span><div class='help-block' style='font-size: 12px;color: #777;margin-left: 70px;'><span>tags: "+tags.substring(0,tags.length-2)+"</span> &brvbar; <span id='timeago' title='"+obj2[i].values.date+"' class='date_time_block'></span></div></p></tr>")
+			$("#crackers_div").append("<tr><td style='border-top: none; border-bottom: 1px solid #eee;'><a href='/"+obj2[i].values.username+"'><img style='width: 50px;height: 50px;display: inline-block;' src='"+obj2[i].values.avatar+"' class='thumbnail' style='display: inline-block;'></img></a>&nbsp;&nbsp;<a href='#' class='joke_title' id='"+obj2[i]._id+"' style='margin-top: 2px;position: absolute'>"+obj2[i].values.title+"</a><span class='pull-right'><span id='timeago' title='"+obj2[i].values.date+"' class='date_time_block'></span></span><br><span class='pull-right' style='padding-right: 125px;width: 430px;padding-left: 70px;margin-top: -30px;color: #666; font-style: italic;'>"+obj2[i].values.desc.replace(/(<([^>]+)>)/ig," ").substring(0,100)+"...</span><div class='help-block' style='font-size: 12px;color: #777;margin-left: 70px;'><span>tags: "+tags.substring(0,tags.length-2)+"</span></div></p></tr>")
+			$(".date_time_block").timeago();
 		}
 		$("img#loader").hide();
 		$("#crackers_div").append("<tr></tr>").hide().fadeIn(500);
