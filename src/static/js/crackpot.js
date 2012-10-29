@@ -2163,6 +2163,7 @@ $(document).ready(function(){
 	
 	$(".joke_title").live("click", function(){
 		$("table#crackers_div").hide();
+		$("#no_results").hide();
 		$("#loader").show();	
 		var id=$(this).attr("id");
 		$.post("/complete_joke", {oid: id},
