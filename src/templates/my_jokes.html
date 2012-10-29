@@ -6,12 +6,15 @@
 		<input id="my_username" type="hidden" value="{{ session['username'] }}" />
 		<div id="dashboard_info"></div>
 	</div>
-		<div class="well span8" style="background-color: #fff;padding-bottom: 0px;"><h4 style="margin-top: -5px;padding-bottom: 10px;">My Jokes</h4>
-		<div class="btn-group pull-right" style="margin-top: -46px;">
+		<div class="well span8" style="background-color: #fff;"><h4 style="margin-top: -5px;">My Jokes</h4><center><img id="loader" style="position: absolute;" src="./static/img/loader.gif"/></center>
+		<div class="btn-group pull-right" style="margin-top: -36px;">
   <button class="btn" title="Home" href="./"><i class="icon-home"></i></a></button>
   <button class="btn" title="Crack a joke!" href="./crack"><i class="icon-bullhorn"></i></button>
 </div>
-		<center><img id="loader" src="./static/img/loader.gif" /></center><table class="table table-hover" id="jokes_div" style="margin-top: -10px;"></table></div>
+		<hr style="margin-top: 0px;">
+		<table class="table table-hover" id="crackers_div" style="margin-top: -10px;"></table>
+		<div id="complete_joke"></div>
+		</div>
 </div>
 {% include "layouts/footer.html" %}
 <script src="./static/js/timeago.js"></script>
@@ -33,19 +36,19 @@
 	
 	$.post("/get_jokes", function(data){
 		var obj=$.parseJSON(data);
-		$("#jokes_div").html("");
+		$("#crackers_div").html("");
 		for(var i in obj){
-			if(obj[i].tags){
+			if(obj[i].values.tags){
 				var tags="";
-				for(var j in obj[i].tags){
-					tags=tags+"<a href='#'>"+obj[i].tags[j]+"</a>, ";
+				for(var j in obj[i].values.tags){
+					tags=tags+"<a href='#'>"+obj[i].values.tags[j]+"</a>, ";
 				}
 			}
-			$("#jokes_div").append("<tr><td><a href='#'><h5>"+obj[i].title+"</h5></a>"+(obj[i].desc).replace(/(<([^>]+)>)/ig," ").substring(0,100)+"...<p class='help-block' style='font-size: 12px;color: #777;'><span>tags: "+tags.substring(0,tags.length-2)+"</span> &brvbar; <span id='timeago' title='"+obj[i].date+"' class='date_time_block'></span></p></tr>");
+			$("#crackers_div").append("<tr><td style='border-top: none; border-bottom: 1px solid #eee;><a href='#' class='joke_title' id='"+obj[i]._id+"'>"+obj[i].values.title+"</a><span class='pull-right'><span id='timeago' title='"+obj[i].values.date+"' class='date_time_block'></span></span><p>"+(obj[i].values.desc).replace(/(<([^>]+)>)/ig," ").substring(0,100)+"...<p class='help-block' style='font-size: 12px;color: #777;'><span>tags: "+tags.substring(0,tags.length-2)+"</span> &brvbar;<span id='timeago' title='"+obj[i].values.date+"' class='date_time_block'></span></p></tr>");
 			$(".date_time_block").timeago();
 		}
 		$("img#loader").hide();
-		$("#jokes_div").append("<tr></tr>").hide().fadeIn(500);
+		$("#crackers_div").append("<tr></tr>").hide().fadeIn(500);
 	});
 </script>
 </body>
