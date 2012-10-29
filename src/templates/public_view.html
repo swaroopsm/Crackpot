@@ -45,7 +45,10 @@
 		$.post("/public_info",{username: document.URL.split("/")[3].replace(/#/,"")},
 		function(data){
 			var obj=$.parseJSON(data);
-			$("body").css("background-color",obj.bg_color);
+			if(obj.bg_color)
+				$("body").css("background-color",obj.bg_color);
+			else
+				$("body").css('background-color', '#282a2e');
 			var username, follower, following, location="", url="",bio="";
 		if(obj.follower)
 			follower=obj.follower.length;
@@ -68,7 +71,6 @@
 		function(data2){
 			var obj2=$.parseJSON(data2);
 			$("#crackers_div").html("");
-			console.log(obj2)
 		for(var i in obj2){
 			var tags="";
 			var href_attr;
