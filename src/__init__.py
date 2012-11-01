@@ -169,7 +169,7 @@ def my_subscribers():
 def get_subscribers():
 	try:
 		if session['loggedin'] == True:
-			return json.dumps(u.user_subscribers(mongo,session['username']))
+			return json.dumps(u.user_subscribers(mongo,request.form['user']))
 	except KeyError:
 		return json.dumps({"status": "error"})
 		
