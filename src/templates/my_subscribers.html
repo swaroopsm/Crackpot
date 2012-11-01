@@ -30,7 +30,7 @@
 		$("#dashboard_info").html("<center><img style='width: 180px; height: 180px;'src='http://gravatar.com/avatar/"+obj.email_hash+"?size=180' alt='"+obj.name+"' class='thumbnail'></img><hr><h5><a href='/profile'>"+obj.name+"</a> (<a href='/"+obj.username+"'>@"+obj.username+"</a>)</h5><p><a href='/subscribers'>Subscribers: "+follower+"</a></p><p><a href='/subscriptions'>Subscriptions: "+following+"</a></p><p><a href='/jokes'>Jokes: "+obj.jokes+"</a></p></center>").show();
 	});
 	
-	$.post("/get_subscribers", function(data){
+	$.post("/get_subscribers",{user: $("#my_username").val()}, function(data){
 		var obj=$.parseJSON(data);
 		$("#subscribers_div").html('');
 		if(obj.follower){
