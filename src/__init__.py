@@ -249,6 +249,10 @@ def more_jokes():
 		d.append(i['user'])
 	return json.dumps(j.load_more_jokes(mongo,d,ObjectId(request.form['oid'])))
 
+@app.route("/<username>/subscribers")
+def pub_subscribers(username):
+	return username
+
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
 	app.jinja_env.globals.update(get_userinfo=get_userinfo)
