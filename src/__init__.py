@@ -251,7 +251,12 @@ def more_jokes():
 
 @app.route("/<username>/subscribers")
 def pub_subscribers(username):
-	return username
+	try:
+		a=u.view(mongo,username)	
+		a.update({'email_hash': md5.new(a['email']).hexdigest()})
+		return render_template("user_subscribers.html", title="Crackpot | "+a['name'], info=a)
+	except KeyError:
+		return "Error, not found!"
 
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
