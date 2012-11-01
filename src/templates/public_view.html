@@ -58,7 +58,7 @@
 			following=obj.following.length;
 		else
 			following=0;
-			$("#dashboard_info").html("<center><img style='width: 180px; height: 180px;' src='"+obj.avatar+"?size=180' alt='"+obj.name+"' class='thumbnail'></img><br>{% if info.username != session['username'] %}<div id='sub_unsub_div' ></div>{% endif %}<hr><h5>"+obj.name+" (<a href='/"+obj.username+"'>@"+obj.username+"</a>)</h5><p><a href='/subscribers'>Subscribers: "+follower+"</a></p><p><a href='/subscriptions'>Subscriptions: "+following+"</a></p><p><a href='/jokes'>Jokes: "+obj.jokes+"</a></p></center>").show();
+			$("#dashboard_info").html("<center><img style='width: 180px; height: 180px;' src='"+obj.avatar+"?size=180' alt='"+obj.name+"' class='thumbnail'></img><br>{% if info.username != session['username'] %}<div id='sub_unsub_div' ></div>{% endif %}<hr><h5>"+obj.name+" (<a href='/"+obj.username+"'>@"+obj.username+"</a>)</h5><p><a href='/"+obj.username+"/subscribers'>Subscribers: "+follower+"</a></p><p><a href='/"+obj.username+"/subscriptions'>Subscriptions: "+following+"</a></p><p><a href='/jokes'>Jokes: "+obj.jokes+"</a></p></center>").show();
 			$("#about_title").html(obj.name).show();
 			if(obj.url)
 				url=obj.url;
