@@ -1,0 +1,96 @@
+{% include "layouts/header.html" %}
+{% if session['loggedin']==True %}
+	{% include "layouts/user_navbar.html" %}
+{% else %}
+	{% include "layouts/navbar.html"%}
+{% endif %}
+<body>
+<div class="container user_dash">
+	{% if info %}
+		{% if session['loggedin'] == True %}
+		<input type="hidden" id="my_username" value="{{ info.username }}">
+		<input type="hidden" id="my_bio" value="{{ info.bio }}">
+		<input type="hidden" id="my_name" value="{{ info.name }}">
+		<input type="hidden" id="my_avatar" value="http://gravatar.com/avatar/{{ info.email_hash }}/?s=50">
+		<input type="hidden" id="ref_name" value="{{ get_userinfo('name') }}">
+		<input type="hidden" id="ref_bio" value="{{ get_userinfo('bio') }}">
+		<input type="hidden" id="ref_avatar" value="http://gravatar.com/avatar/{{ get_userinfo('email_hash') }}/?s=50">
+		{% endif %}
+			<div class="span3">
+				<div id="dashboard_info"></div>
+			</div>
+				<div class="well span8" style="background-color: #fff;min-height: 133px;"><h4 style="margin-top: -5px;">Subscribers</h4>
+		{% if session['loggedin'] == True %}
+			<div class="btn-group pull-right" style="margin-top: -36px;">
+				<button class="btn" title="Home" href="./"><i class="icon-home"></i></a></button>
+				<button class="btn" title="Crack a joke!" href="./crack"><i class="icon-bullhorn"></i></button>
+			</div>
+		{% endif %}
+		<hr style="margin-top: 0px;">
+		<div id="about_info"></div>
+</div>
+			</div>
+	{% endif %}
+</div>
+{% include "layouts/footer.html" %}
+<script src="./static/js/timeago.js"></script>
+<script>
+		
+		$.post("/public_info",{username: document.URL.split("/")[3].replace(/#/,"")},
+		function(data){
+			var obj=$.parseJSON(data);
+			if(obj.bg_color)
+				$("body").css("background-color",obj.bg_color);
+			else
+				$("body").css('background-color', '#282a2e');
+			var username, follower, following, location="", url="",bio="";
+		if(obj.follower)
+			follower=obj.follower.length;
+		else
+			follower=0
+		if(obj.following)
+			following=obj.following.length;
+		else
+			following=0;
+			$("#dashboard_info").html("<center><img style='width: 180px; height: 180px;' src='"+obj.avatar+"?size=180' alt='"+obj.name+"' class='thumbnail'></img><br>{% if info.username != session['username'] %}<div id='sub_unsub_div' ></div>{% endif %}<hr><h5>"+obj.name+" (<a href='/"+obj.username+"'>@"+obj.username+"</a>)</h5><p><a href='/"+obj.username+"/subscribers'>Subscribers: "+follower+"</a></p><p><a href='/"+obj.username+"/subscriptions'>Subscriptions: "+following+"</a></p><p><a href='/jokes'>Jokes: "+obj.jokes+"</a></p></center>").show();
+			if(obj.url)
+				url=obj.url;
+			if(obj.bio)
+				bio=obj.bio;
+			if(obj.location)
+				location=obj.location;
+		});		
+		
+		$.post("/get_followers", function(data){
+			var obj=$.parseJSON(data);
+			var flag=0;
+			if(obj.success=="error"){
+				$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').fadeIn(500);
+			}
+			else{
+				if(obj.following){
+					for(var i=0;i<obj.following.length;i++){
+					if($("#my_username").val() == obj.following[i].user){
+						$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-danger" data-value="unsubscribe">Unsubscribe</button></a>').fadeIn(500);
+						flag=1;
+						return;
+					}
+					else{
+						flag=0;
+					}
+				}	
+				}
+				else{
+					$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').fadeIn(500);
+				}
+				
+			}
+			if(flag==0){
+				$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').fadeIn(500);
+			}
+		});		
+		
+		
+</script>
+</body>
+</html>
