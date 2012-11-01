@@ -169,9 +169,13 @@ def my_subscribers():
 def get_subscribers():
 	try:
 		if session['loggedin'] == True:
-			return json.dumps(u.user_subscribers(mongo,request.form['user']))
+			a=u.user_subscribers(mongo,request.form['user'])
+			a.update({"status":"success"})
+			return json.dumps(a)
 	except KeyError:
-		return json.dumps({"status": "error"})
+		a=u.user_subscribers(mongo,request.form['user'])
+		a.update({"status":"error"})
+		return json.dumps(a)
 		
 @app.route("/crack", methods=['POST','GET'])
 def crack():
