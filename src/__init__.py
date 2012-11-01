@@ -141,7 +141,9 @@ def get_followers():
 			a=u.user_followers(mongo,session['username'])
 			return json.dumps(a)
 	except KeyError:
-		return json.dumps({"success": "error"})
+		a=u.user_followers(mongo,request.form['user'])
+		a.update({"status":"error"})
+		return json.dumps(a)
 
 @app.route("/my_info", methods=['POST'])
 def my_info():
@@ -259,6 +261,15 @@ def pub_subscribers(username):
 		a=u.view(mongo,username)	
 		a.update({'email_hash': md5.new(a['email']).hexdigest()})
 		return render_template("user_subscribers.html", title="Crackpot | "+a['name'], info=a)
+	except KeyError:
+		return "Error, not found!"
+
+@app.route("/<username>/subscriptions")
+def pub_subscriptions(username):
+	try:
+		a=u.view(mongo,username)	
+		a.update({'email_hash': md5.new(a['email']).hexdigest()})
+		return render_template("user_subscriptions.html", title="Crackpot | "+a['name'], info=a)
 	except KeyError:
 		return "Error, not found!"
 
