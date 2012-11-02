@@ -8,6 +8,7 @@
 <div class="container user_dash">
 	{% if info %}
 		{% if session['loggedin'] == True %}
+		<input type="hidden" id="cur_username" value="{{ session['username'] }}">
 		<input type="hidden" id="my_username" value="{{ info.username }}">
 		<input type="hidden" id="my_bio" value="{{ info.bio }}">
 		<input type="hidden" id="my_name" value="{{ info.name }}">
@@ -92,16 +93,17 @@
 		});
 		});		
 		
-		$.post("/get_followers", function(data){
+		$.post("/get_subscribers", {user: $("#my_username").val()}, function(data){
 			var obj=$.parseJSON(data);
+			console.log(obj)
 			var flag=0;
-			if(obj.success=="error"){
+			if(obj.status=="error"){
 				$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').fadeIn(500);
 			}
 			else{
-				if(obj.following){
-					for(var i=0;i<obj.following.length;i++){
-					if($("#my_username").val() == obj.following[i].user){
+				if(obj.follower){
+					for(var i=0;i<obj.follower.length;i++){
+					if($("#cur_username").val() == obj.follower[i].user){
 						$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-danger" data-value="unsubscribe">Unsubscribe</button></a>').fadeIn(500);
 						flag=1;
 						return;
