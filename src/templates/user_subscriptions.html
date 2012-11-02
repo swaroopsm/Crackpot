@@ -61,7 +61,7 @@
 				location=obj.location;
 		});		
 		
-	$.post("/get_subscribers", {user: $("#my_username").val()}, function(data){
+	$.post("/get_subscribers", {user: document.URL.split("/")[3].replace(/#/,"")}, function(data){
 			var obj=$.parseJSON(data);
 			var flag=0;
 			if(obj.status=="error"){
