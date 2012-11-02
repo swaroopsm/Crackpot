@@ -138,7 +138,8 @@ def public_profile(username):
 def get_followers():
 	try:
 		if session['loggedin']  == True:
-			a=u.user_followers(mongo,session['username'])
+			a=u.user_followers(mongo,request.form['user'])
+			a.update({"status":"success"})
 			return json.dumps(a)
 	except KeyError:
 		a=u.user_followers(mongo,request.form['user'])
