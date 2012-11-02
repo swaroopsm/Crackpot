@@ -61,25 +61,17 @@
 				location=obj.location;
 		});		
 		
-		$.post("/get_followers", {user: document.URL.split("/")[3].replace(/#/,"")}, function(data){
-		var obj=$.parseJSON(data);
-		var flag=0;
-		$("#subscriptions_div").html('');
+	$.post("/get_subscribers", {user: $("#my_username").val()}, function(data){
+			var obj=$.parseJSON(data);
+			var flag=0;
 			if(obj.status=="error"){
 				$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').fadeIn(500);
 			}
-			if(obj.status=="success"){
-				if(obj.following){
-					console.log(obj)
-					for(var i in obj.following){
-				$("#subscriptions_div").append("<p><a href='/"+obj.following[i].user+"'><img style='width: 50px;height: 50px;display: inline-block;' src='"+obj.following[i].avatar+"' class='thumbnail' style='display: inline-block;'></img></a>&nbsp;&nbsp;<a href='/"+obj.following[i].user+"' style='margin-top: 8px;position: absolute'>"+obj.following[i].name+"</a><br><span class='pull-right' style='padding-right: 125px;width: 430px;padding-left: 70px;margin-top: -30px;color: #666; font-style: italic;'>"+obj.following[i].bio+"</span><div style='border-bottom: 1px solid #ececec;padding: 10px;'></div></p>");
-			}
-			$("#subscriptions_div").hide().fadeIn(500);
-			
-					for(var i=0;i<obj.following.length;i++){
-					console.log($("#cur_username").val())
-					if($("#cur_username").val() == obj.following[i].user){
-						$("#sub_unsub_div").html('<a href="#" id="" data-user=""><button class="btn btn-success" data-value="unsubscribe">Following You!</button></a>').fadeIn(500);
+			else{
+				if(obj.follower){
+					for(var i=0;i<obj.follower.length;i++){
+					if($("#cur_username").val() == obj.follower[i].user){
+						$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-danger" data-value="unsubscribe">Unsubscribe</button></a>').fadeIn(500);
 						flag=1;
 						return;
 					}
@@ -87,15 +79,35 @@
 						flag=0;
 					}
 				}	
-				
 				}
 				else{
-					$("#sub_unsub_div").html('<a href="#" id="" data-user=""><button class="btn btn-danger" data-value="subscribe">Not Following You!</button></a>').fadeIn(500);
+					$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').fadeIn(500);
 				}
 				
 			}
 			if(flag==0){
-				$("#sub_unsub_div").html('<a href="#" id="" data-user=""><button class="btn btn-danger" data-value="subscribe">Not Following You!</button></a>').fadeIn(500);
+				$("#sub_unsub_div").html('<a href="#" id="sub_unsub_btn" data-user="'+$("#my_username").val()+'"><button class="btn btn-info" data-value="subscribe">Subscribe</button></a>').fadeIn(500);
+			}
+		});	
+		
+		$.post("/get_followers", {user: document.URL.split("/")[3].replace(/#/,"")}, function(data){
+		var obj=$.parseJSON(data);
+		var flag=0;
+		$("#subscriptions_div").html('');
+			if(obj.status=="error"){
+				
+			}
+			if(obj.status=="success"){
+				console.log(obj)
+				if(obj.following){
+					for(var i in obj.following){
+				$("#subscriptions_div").append("<p><a href='/"+obj.following[i].user+"'><img style='width: 50px;height: 50px;display: inline-block;' src='"+obj.following[i].avatar+"' class='thumbnail' style='display: inline-block;'></img></a>&nbsp;&nbsp;<a href='/"+obj.following[i].user+"' style='margin-top: 8px;position: absolute'>"+obj.following[i].name+"</a><br><span class='pull-right' style='padding-right: 125px;width: 430px;padding-left: 70px;margin-top: -30px;color: #666; font-style: italic;'>"+obj.following[i].bio+"</span><div style='border-bottom: 1px solid #ececec;padding: 10px;'></div></p>");
+			}
+			$("#subscriptions_div").hide().fadeIn(500);
+			
+				
+				}
+				
 			}
 			
 		
