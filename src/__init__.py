@@ -277,6 +277,12 @@ def pub_subscriptions(username):
 	except KeyError:
 		return "Error, not found!"
 
+@app.route("/tags/<tag>")
+def tags(tag):
+	tag=tag.replace("+"," ")
+	a=j.get_tagged(mongo,tag)
+	return json.dumps(a)
+
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
 	app.jinja_env.globals.update(get_userinfo=get_userinfo)
