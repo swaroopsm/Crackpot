@@ -56,3 +56,13 @@ class Jokes():
 			del i['_id']
 			jokes_list.append({"_id": k, "values": i})
 		return jokes_list
+		
+	@staticmethod
+	def get_tagged(m,tag):
+		t=[]
+		a=m.db.jokes.find({"tags": tag})
+		for i in a:
+			c=str(i['_id'])
+			del i['_id']
+			t.append({"_id": c, "values": i})
+		return t
