@@ -1,0 +1,62 @@
+{% include "layouts/header.html" %}
+{% if session['loggedin']==True %}
+	{% include "layouts/user_navbar.html" %}
+{% else %}
+	{% include "layouts/navbar.html"%}
+{% endif %}
+{% include "layouts/footer.html" %}
+<script src="/static/js/timeago.js"></script>
+<script>
+	$(".date_time_block").timeago();
+	$.post("/my_info", function(data){
+		var obj=$.parseJSON(data);
+		$("body").css("background-color",obj.bg_color);
+		var username, follower, following;
+		if(obj.follower)
+			follower=obj.follower.length;
+		else
+			follower=0
+		if(obj.following)
+			following=obj.following.length;
+		else
+			following=0;
+		$("#dashboard_info").html("<center><img style='width: 180px; height: 180px;'src='http://gravatar.com/avatar/"+obj.email_hash+"?size=180' alt='"+obj.name+"' class='thumbnail'></img><hr><h5><a href='/profile'>"+obj.name+"</a> (<a href='/"+obj.username+"'>@"+obj.username+"</a>)</h5><p><a href='/subscribers'>Subscribers: "+follower+"</a></p><p><a href='/subscriptions'>Subscriptions: "+following+"</a></p><p><a href='/jokes'>Jokes: "+obj.jokes+"</a></p></center>").show();
+	});
+</script>
+<body>
+	<body style="overflow-y: scroll;">
+<div class="container user_dash">
+	<div class="span3">
+		<input id="my_username" type="hidden" value="{{ session['username'] }}" />
+		<div id="dashboard_info"></div>
+	</div>
+		<div class="well span8" style="background-color: #fff;"><h4 style="margin-top: -5px;">Tagged: <small><a href="/tags/{{ tagged.replace(" ","+") }}">{{ tagged }}</a></small></h4>
+		<div class="btn-group pull-right" style="margin-top: -36px;">
+  <button class="btn" title="Home" href="./"><i class="icon-home"></i></a></button>
+  <button class="btn" title="Crack a joke!" href="./crack"><i class="icon-bullhorn"></i></button>
+</div>
+		<hr style="margin-top: 0px;">
+		<table class="table table-hover" id="crackers_div" style="margin-top: -10px;">
+			{% for i in info %}
+				<tr><td style='border-top: none; border-bottom: 1px solid #eee;'><a href='/{{ i['values']['username'] }}'><img style='width: 50px;height: 50px;display: inline-block;' src='{{ i['values']['avatar'] }}' class='thumbnail' style='display: inline-block;'></img></a>&nbsp;&nbsp;<a href='#' class='joke_title' id='{{ i['_id'] }}' style='margin-top: 2px;position: absolute'>{{ i['values']['title'] }}</a><span class='pull-right'><span id='timeago' title='{{ i['values']['date'] }}' class='date_time_block'></span></span><br>
+				<span class='pull-right' style='padding-right: 125px;width: 430px;padding-left: 70px;margin-top: -30px;color: #666; font-style: italic;'>
+						<a href='#' class='joke_title' id='{{ i['_id'] }}' >Check this crack &raquo;</a>
+				</span><div class='help-block' style='font-size: 12px;color: #777;margin-left: 70px;'><span>tags: 
+				{% with %}
+					{% for j in i['values']['tags'] %}
+						{% set t=j %}
+						{% if loop.last %}
+							<a href="/tags/{{ j.replace(' ','+') }}">{{ j }}</a>
+						{% else %}
+							<a href="/tags/{{ j.replace(' ','+') }}">{{ j }}</a>,
+						{% endif %}
+					{% endfor %}
+				{% endwith %}
+		</span></div></p></tr>
+				{% endfor %}
+		</table>
+		<center><img id="loader2" style="position: absolute;display: none;" src="./static/img/loader.gif"/></center><center><span class="alert alert-info span7" style="display: none;" id="no_results">No more jokes to load...</span></center>
+		<div id="complete_joke"></div></div>
+</div>
+</body>
+</html>
