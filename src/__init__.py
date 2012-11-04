@@ -281,7 +281,7 @@ def pub_subscriptions(username):
 def tags(tag):
 	tag=tag.replace("+"," ")
 	a=j.get_tagged(mongo,tag)
-	return json.dumps(a)
+	return render_template("tagged.html", info=(a), tagged=tag)
 
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
