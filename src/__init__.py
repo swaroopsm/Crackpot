@@ -130,7 +130,9 @@ def public_profile(username):
 		try:
 			a=u.view(mongo,username)	
 			a.update({'email_hash': md5.new(a['email']).hexdigest()})
-			return render_template("public_view.html", title="Crackpot | "+a['name'], info=a)
+			ref={}
+			ref.update({'ref_name': get_userinfo('name'), 'ref_bio': get_userinfo('bio'), 'ref_avatar': get_userinfo('email_hash')})
+			return render_template("public_view.html", title="Crackpot | "+a['name'], info=a, ref=ref)
 		except KeyError:
 			return "Error, not found!"
 
