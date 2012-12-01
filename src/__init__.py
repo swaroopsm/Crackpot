@@ -26,7 +26,7 @@ mongo=PyMongo(app)
 def index():
 	try:
 		if session['loggedin'] == True:
-			return render_template("user.html", title="Crackpot", username=session['username'])
+			return render_template("user.html", title="Crackpot", username=session['username'], avatar_hash=get_userinfo('email_hash'))
 		return render_template("home.html", title="Crackpot | Welcome Crackster!")
 	except KeyError:
 		return render_template("home.html", title="Crackpot | Welcome Crackster!")
