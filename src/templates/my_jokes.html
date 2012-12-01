@@ -15,6 +15,17 @@
 		<table class="table table-hover" id="crackers_div" style="margin-top: -10px;"></table>
 		<div id="complete_joke"></div>
 		</div>
+		<!-- Delete joke modal -->
+		<div class="modal hide fade" id='deleteModal'>
+  <div class="modal-body">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <p>Do you really wish to delete this joke?</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn btn-danger" id='del_joke' data-joke=''>Delete</a>
+  </div>
+</div>
+		<!-- End Delete joke modal -->
 </div>
 {% include "layouts/footer.html" %}
 <script src="./static/js/timeago.js"></script>
@@ -58,6 +69,12 @@
 		$(".joke_row").live("mouseout", function(){
 			var id="joke_"+$(this).attr('data-id');
 			$("#"+id).hide();
+		});
+		
+		$(".joke_delete").live("click", function(){
+			var id=$(this).parent()[0].id;
+			$("#del_joke").attr('data-joke',id);
+			$("#deleteModal").modal('toggle');
 		});
 		
 	});
