@@ -2195,5 +2195,22 @@ $(document).ready(function(){
 		$("div#complete_joke").hide();
 		$("table#crackers_div").fadeIn(200);
 	});
+	
+			$(".joke_row").live("mouseover", function(){
+			var id="joke_"+$(this).attr('data-id');
+			$("#"+id).show();
+		});
+		
+		$(".joke_row").live("mouseout", function(){
+			var id="joke_"+$(this).attr('data-id');
+			$("#"+id).hide();
+		});
+		
+		$(".joke_delete").live("click", function(){
+			var id=$(this).parent()[0].id;
+			$("#del_joke").attr('data-joke',id);
+			$("#deleteModal").modal('toggle');
+		});
+	
 });
 
