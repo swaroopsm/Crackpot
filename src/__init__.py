@@ -83,7 +83,14 @@ def new_user():
 def profile():
 	try:
 		if session['loggedin'] == True:
-			return render_template("profile.html", title="Crackpot | Profile", username=session['username'])
+			info={}
+			info.update({'bg_color': get_userinfo('bg_color')})
+			info.update({'name': get_userinfo('name')})
+			info.update({'email': get_userinfo('email')})
+			info.update({'bio': get_userinfo('bio')})
+			info.update({'url': get_userinfo('url')})
+			info.update({'location': get_userinfo('location')})
+			return render_template("profile.html", title="Crackpot | Profile", username=session['username'], avatar_hash=get_userinfo('email_hash'), info=info)
 		else:
 			return redirect(url_for("index"))
 	except KeyError:
