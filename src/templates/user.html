@@ -37,6 +37,11 @@
 	
 	$.post("/subscribed_jokes", function(data){
 		var obj=$.parseJSON(data);
+		if(obj.status=="error"){
+			$("#crackers_div").append("<center><h4>No Jokes to load!</h4></center>").hide().fadeIn(200);
+			$("#loader").fadeOut(200);
+			return;
+		}
 		$("#crackers_div").html("");
 		for(var i in obj){
 			var tags="";
