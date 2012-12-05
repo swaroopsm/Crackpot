@@ -140,7 +140,7 @@ def public_profile(username):
 			try:
 				ref={}
 				ref.update({'ref_name': get_userinfo('name'), 'ref_bio': get_userinfo('bio'), 'ref_avatar': get_userinfo('email_hash')})
-				return render_template("public_view.html", title="Crackpot | "+a['name'], info=a, ref=ref)
+				return render_template("public_view.html", title="Crackpot | "+a['name'], info=a, ref=ref, username=session['username'], avatar_hash=get_userinfo('email_hash'))
 			except KeyError:
 				return render_template("public_view.html", title="Crackpot | "+a['name'], info=a)
 		else:
