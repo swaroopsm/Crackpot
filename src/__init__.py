@@ -168,7 +168,7 @@ def my_info():
 def my_followers():
 	try:
 		if session['loggedin'] == True:
-			return render_template("my_subscriptions.html", title="Crackpot | Subscriptions")
+			return render_template("my_subscriptions.html", title="Crackpot | Subscriptions", username=session['username'], avatar_hash=get_userinfo('email_hash'))
 	except KeyError:
 		return ""
 		
@@ -176,7 +176,7 @@ def my_followers():
 def my_subscribers():
 	try:
 		if session['loggedin'] == True:
-			return render_template("my_subscribers.html", title="Cracpot | Subscribers")
+			return render_template("my_subscribers.html", title="Cracpot | Subscribers", username=session['username'], avatar_hash=get_userinfo('email_hash'))
 	except KeyError:
 		return redirect(url_for("login"))
 		
@@ -224,7 +224,7 @@ def submit_joke():
 def jokes():
 	try:
 		if session['loggedin']==True:
-			return render_template("my_jokes.html", title="Crackpot | My Jokes")
+			return render_template("my_jokes.html", title="Crackpot | My Jokes", username=session['username'], avatar_hash=get_userinfo('email_hash'))
 	except KeyError:
 		return redirect(url_for('login'))
 
