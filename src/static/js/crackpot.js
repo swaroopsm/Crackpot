@@ -2211,6 +2211,15 @@ $(document).ready(function(){
 			$("#del_joke").attr('data-joke',id);
 			$("#deleteModal").modal('toggle');
 		});
-	
+		
+		$("#del_joke").live("click", function(){
+			var id=$(this).attr('data-joke').substring(5);
+			$.post("/delete_joke",{id: id},
+			function(data){
+				
+				console.log(data);
+			});
+		});
+		
 });
 
