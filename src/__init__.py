@@ -295,6 +295,12 @@ def tags(tag):
 	a=j.get_tagged(mongo,tag)
 	return render_template("tagged.html", info=(a), tagged=tag)
 
+@app.route("/delete_joke", methods=['POST'])
+def delete_joke():
+	joke_id=request.form['id']
+	return json.dumps({"status": j.delete_joke(mongo,ObjectId(joke_id))})
+
+
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
 	app.jinja_env.globals.update(get_userinfo=get_userinfo)
