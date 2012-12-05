@@ -52,8 +52,15 @@
 		for(var i in obj){
 			if(obj[i].values.tags){
 				var tags="";
+				var href_attr;
 				for(var j in obj[i].values.tags){
-					tags=tags+"<a href='#'>"+obj[i].values.tags[j]+"</a>, ";
+					if(j==0){
+						href_attr=obj[i].values.tags[j].replace(/ /g,"+");
+					}
+					else{
+						href_attr=obj[i].values.tags[j].replace(/ /g,"+");
+					}
+					tags=tags+"<a href='./tags/"+href_attr+"'>"+obj[i].values.tags[j]+"</a>, ";
 				}
 			}
 			$("#crackers_div").append("<tr id='joke_row_"+obj[i]._id+"'><td class='joke_row' data-id='"+obj[i]._id+"' style='border-top: none; border-bottom: 1px solid #eee;'><a href='#' class='joke_title' id='"+obj[i]._id+"'>"+obj[i].values.title+"</a><span class='pull-right'><span id='joke_"+obj[i]._id+"' style='display: none;'><a href='#' title='Edit' class='joke_edit'><i class='icon-wrench'></i></a> &nbsp; <a href='#' class='joke_delete' title='Delete' ><i class='icon-remove'></i></a></span>&nbsp; <span id='timeago' title='"+obj[i].values.date+"' class='date_time_block'></span></span><p class='span6'>"+(obj[i].values.desc).replace(/(<([^>]+)>)/ig," ").substring(0,100)+"...<p class='help-block' style='font-size: 12px;color: #777;'><span>tags: "+tags.substring(0,tags.length-2)+"</span> &brvbar;<span id='timeago' title='"+obj[i].values.date+"' class='date_time_block'></span></p></tr>");
