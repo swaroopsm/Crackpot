@@ -2207,18 +2207,25 @@ $(document).ready(function(){
 		});
 		
 		$(".joke_delete").live("click", function(){
+			$("#deleteModal_loader").hide();
 			var id=$(this).parent()[0].id;
 			$("#del_joke").attr('data-joke',id);
 			$("#deleteModal").modal('toggle');
+			return false;
 		});
 		
 		$("#del_joke").live("click", function(){
+			$("#deleteModal_loader").show();
 			var id=$(this).attr('data-joke').substring(5);
 			$.post("/delete_joke",{id: id},
 			function(data){
-				
-				console.log(data);
+				var obj=$.parseJSON(data);
+				if(obj.status){
+					$("#deleteModal").modal('hide');
+					$("#joke_row_"+id).fadeOut(300);
+				}
 			});
+			return false;
 		});
 		
 });
