@@ -66,3 +66,11 @@ class Jokes():
 			del i['_id']
 			t.append({"_id": c, "values": i})
 		return t
+		
+	@staticmethod
+	def delete_joke(m, joke_id):
+		try:
+			m.db.jokes.remove({"_id": joke_id})
+			return True
+		except:
+			return False
