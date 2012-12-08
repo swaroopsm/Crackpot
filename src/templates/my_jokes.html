@@ -27,6 +27,40 @@
   </div>
 </div>
 		<!-- End Delete joke modal -->
+		
+		<!-- Edit joke modal -->
+		
+		<div class="modal hide fade" id='editJokeModal'>
+			<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h5>Update Joke</h5>
+			</div>
+			<div class="modal-body">
+				<center><input type="text" class="span6" placeholder="Joke Title" id="editjoke_title" tabindex="1"/></center>
+					<div class=" span6" style="background-color: #fff;padding-top: 0px;">
+						<div class="btn-toolbar" style="margin-top: 0px;">
+						<center>
+						<div class="btn-group">
+							<a class="btn" href="#" title="Bold" id="bold_icon_link"><i class="icon-bold"></i></a>
+							<a class="btn" href="#" title="Italic" id="italic_icon_link"><i class="icon-italic"></i></a>
+							<a class="btn" href="#" title="Underline" id="underline_icon_link"><i class="icon-magnet"></i></a>
+							<a class="btn" href="#" title="Link" id="resize_icon_link"><i class="icon-resize-small"></i></a>
+							<a class="btn" href="#" title="Big Text" id="bigtext_icon_link"><i class="icon-text-height"></i></a>
+						</div>
+					</div>
+					 </center>
+						<section class="span6 well" id="editjoke_textarea" contenteditable="true" tabindex="2" style="margin-left: 0px;"></section>
+					</div>
+					<center><input type="text" class="span6" placeholder="Add tags seperated by a comma" id="editjoke_tags" tabindex="3"/></center>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn btn-success" id='edit_joke' data-joke=''>Update</a>
+				<center><img style='display: none' src='static/img/loader.gif' id='editJokeModal_loader' /></center>
+			</div>
+		</div>
+		
+		<!-- End Edit joke modal -->
+		
 </div>
 {% include "layouts/footer.html" %}
 <script src="./static/js/timeago.js"></script>
@@ -63,7 +97,7 @@
 					tags=tags+"<a href='./tags/"+href_attr+"'>"+obj[i].values.tags[j]+"</a>, ";
 				}
 			}
-			$("#crackers_div").append("<tr id='joke_row_"+obj[i]._id+"'><td class='joke_row' data-id='"+obj[i]._id+"' style='border-top: none; border-bottom: 1px solid #eee;'><a href='#' class='joke_title' id='"+obj[i]._id+"'>"+obj[i].values.title+"</a><span class='pull-right'><span id='joke_"+obj[i]._id+"' style='display: none;'><a href='#' title='Edit' class='joke_edit'><i class='icon-wrench'></i></a> &nbsp; <a href='#' class='joke_delete' title='Delete' ><i class='icon-remove'></i></a></span>&nbsp; <span id='timeago' title='"+obj[i].values.date+"' class='date_time_block'></span></span><p class='span6'>"+(obj[i].values.desc).replace(/(<([^>]+)>)/ig," ").substring(0,100)+"...<p class='help-block' style='font-size: 12px;color: #777;'><span>tags: "+tags.substring(0,tags.length-2)+"</span> &brvbar;<span id='timeago' title='"+obj[i].values.date+"' class='date_time_block'></span></p></tr>");
+			$("#crackers_div").append("<tr id='joke_row_"+obj[i]._id+"'><td class='joke_row' data-id='"+obj[i]._id+"' style='border-top: none; border-bottom: 1px solid #eee;'><a href='#' class='joke_title' id='"+obj[i]._id+"'>"+obj[i].values.title+"</a><span class='pull-right'><span id='joke_"+obj[i]._id+"' style='display: none;'><a href='#' title='Edit' class='joke_edit' data-title='"+obj[i].values.title+"' data-tags='"+obj[i].values.tags+"'><span style='display: none'>"+obj[i].values.desc+"</span><i class='icon-wrench'></i></a> &nbsp; <a href='#' class='joke_delete' title='Delete' ><i class='icon-remove'></i></a></span>&nbsp; <span id='timeago' title='"+obj[i].values.date+"' class='date_time_block'></span></span><p class='span6'>"+(obj[i].values.desc).replace(/(<([^>]+)>)/ig," ").substring(0,100)+"...<p class='help-block' style='font-size: 12px;color: #777;'><span>tags: "+tags.substring(0,tags.length-2)+"</span> &brvbar;<span id='timeago' title='"+obj[i].values.date+"' class='date_time_block'></span></p></tr>");
 			$(".date_time_block").timeago();
 		}
 		$("img#loader").hide();
