@@ -2228,5 +2228,14 @@ $(document).ready(function(){
 			return false;
 		});
 		
+		$(".joke_edit").live("click", function(){
+			$("#editJokeModal").modal('toggle');
+			$("#editjoke_title").val($(this).attr('data-title'));
+			$("#editjoke_textarea").html($(this).children()[0]);
+			$("#editjoke_tags").val($(this).attr('data-tags'));
+			$("#editjoke_textarea span").show();
+			return false;
+		});
+		
 });
 
