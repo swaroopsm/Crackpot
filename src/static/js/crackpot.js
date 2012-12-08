@@ -2229,11 +2229,13 @@ $(document).ready(function(){
 		});
 		
 		$(".joke_edit").live("click", function(){
+			$("#editjoke_textarea div").hide();
 			$("#editJokeModal").modal('toggle');
 			$("#editjoke_title").val($(this).attr('data-title'));
-			$("#editjoke_textarea").html($(this).children()[0]);
+			var joke_desc=$("#div_joke_"+$(this).attr("data-id"));
+			$("#editjoke_textarea").html(joke_desc);
 			$("#editjoke_tags").val($(this).attr('data-tags'));
-			$("#editjoke_textarea span").show();
+			$("#editjoke_textarea div").show();
 			return false;
 		});
 		
