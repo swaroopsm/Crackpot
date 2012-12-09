@@ -196,7 +196,7 @@ def get_subscribers():
 def crack():
 	try:
 		if session['loggedin'] == True:
-			return render_template("new_joke.html", title="Crackpot | Crack a Joke")
+			return render_template("new_joke.html", title="Crackpot | Crack a Joke", username=session['username'], avatar_hash=get_userinfo('email_hash'))
 	except KeyError:
 		return redirect(url_for('login'))
 
