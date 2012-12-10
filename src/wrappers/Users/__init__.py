@@ -66,7 +66,7 @@ class Users:
 	@staticmethod
 	def user_followers(m,username):
 		d={}
-		a=m.db.users.find({"username": username},{"following": 1})
+		a=m.db.users.find({"username": username},{"following": {"$slice":10}})
 		for i in a:
 			del i['_id']
 			d.update(i)
@@ -79,4 +79,13 @@ class Users:
 		for i in a:
 			del i['_id']
 			d.update(i)
+		return d
+		
+	@staticmethod
+	def load_subscriptions(m,username, skip):
+		d={}
+		a=m.db.users.find({"username": username},{"following": {"$slice": [skip, 10]}})
+		for i in a:
+				del i['_id']
+				d.update(i)
 		return d
