@@ -300,6 +300,10 @@ def delete_joke():
 	joke_id=request.form['id']
 	return json.dumps({"status": j.delete_joke(mongo,ObjectId(joke_id))})
 
+@app.route("/more_subscriptions", methods=['POST'])
+def more_subscriptions():
+	return json.dumps(u.load_subscriptions(mongo,session['username'],int(request.form['skip'])))
+
 
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
