@@ -64,11 +64,17 @@
 			$("#about_title").html(obj.name).show();
 			if(obj.url)
 				url=obj.url;
-			if(obj.bio)
+			if(obj.bio){
 				bio=obj.bio;
+			}
+			else{
+				bio="User has not updated/provided his info yet!"
+			}
 			if(obj.location)
-				location=obj.location;
-			$("#about_info").html("<p><i style='color: #777;'>"+bio+"</i></p><p><small><a href='"+url+"' target='_BLANK'>"+url+"</a><span class='date_time_block'> &brvbar; "+location+"</span></small></p>");
+				location="&brvbar; "+obj.location;
+			else
+				location="";
+			$("#about_info").html("<p><i style='color: #777;'>"+bio+"</i></p><p><small><a href='"+url+"' target='_BLANK'>"+url+"</a><span class='date_time_block'> "+location+"</span></small></p>");
 			$.post("/public_jokes", {username: obj.username},
 		function(data2){
 			var obj2=$.parseJSON(data2);
