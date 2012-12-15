@@ -2115,7 +2115,15 @@ $(document).ready(function(){
 				}
 			});
 		}else{
-			
+			if(myvalue="unsubscribe"){
+				$.post("/unsubscribe", {referer: user},
+				function(data){
+					var obj=$.parseJSON(data);
+					console.log(obj);
+					if(obj.status)
+					$("#sub_unsub_btn").html("<button class='btn btn-info' data-value='subscribe'>Subscribe</button>").hide().fadeIn(500);
+				});
+			}
 		}
 		return false;
 	});
