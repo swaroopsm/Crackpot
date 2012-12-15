@@ -306,7 +306,20 @@ def more_subscriptions():
 
 @app.route("/check_following_exists", methods=['POST'])
 def check_following_exists():
-	return json.dumps(u.check_following(mongo, session['username'], request.form['referer']))
+	try:
+		return json.dumps(u.check_following(mongo, session['username'], request.form['referer']))
+	except KeyError:
+		json.dumps({"status": False})
+
+@app.route("/unsubscribe", methods=['POST'])
+def unsubscribe():
+	try:
+		if u.unsubscribe_user(mongo, session['username'], request.form['referer']):
+			return json.dumps({"status": True})
+		else:
+			return json.dumps({"status": False})
+	except KeyError:
+		return json.dumps({"status": False})
 
 
 if __name__=="__main__":
