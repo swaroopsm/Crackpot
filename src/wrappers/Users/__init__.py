@@ -89,3 +89,13 @@ class Users:
 				del i['_id']
 				d.update(i)
 		return d
+		
+	@staticmethod
+	def check_following(m, username, referer):
+		a=m.db.users.find({"username": referer},{"follower": {"$elemMatch": {"user": username}}})
+		d={}
+		for i in a:
+				del i['_id']
+				d.update(i)
+		d.update({"status": "success"})
+		return d 
