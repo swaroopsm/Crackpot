@@ -98,4 +98,13 @@ class Users:
 				del i['_id']
 				d.update(i)
 		d.update({"status": "success"})
-		return d 
+		return d
+		
+	@staticmethod
+	def unsubscribe_user(m, username, referer):
+		try:
+			m.db.users.update({"username": username},{"$pull": {"following": {"user": referer}}})
+			m.db.users.update({"username": referer},{"$pull": {"follower": {"user": username}}})
+			return True
+		except:
+			return False
