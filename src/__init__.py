@@ -304,6 +304,10 @@ def delete_joke():
 def more_subscriptions():
 	return json.dumps(u.load_subscriptions(mongo,session['username'],int(request.form['skip'])))
 
+@app.route("/check_following_exists", methods=['POST'])
+def check_following_exists():
+	return json.dumps(u.check_following(mongo, session['username'], request.form['referer']))
+
 
 if __name__=="__main__":
 	app.secret_key=s.APP_SECRET_KEY
