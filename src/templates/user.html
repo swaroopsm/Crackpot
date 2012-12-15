@@ -42,6 +42,11 @@
 			$("#loader").fadeOut(200);
 			return;
 		}
+		if(obj.length==0){
+			$("#crackers_div").append("<center><h4>No Jokes to load!</h4></center>").hide().fadeIn(200);
+			$("#loader").fadeOut(200);
+			return;
+		}
 		$("#crackers_div").html("");
 		for(var i in obj){
 			var tags="";
